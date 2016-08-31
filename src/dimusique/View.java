@@ -11,6 +11,7 @@ public class View
     }
     public void waitForCommand()
     {
+        boolean success;
         String input;
         String[] tokens;
         Scanner scanner = new Scanner(System.in);
@@ -19,11 +20,29 @@ public class View
         tokens = input.split(" ");
         if(tokens[0].equals("add"))
         {
-            model.addMusicToList(tokens[1]);
+            success = model.addMusicToList(tokens[1]);
+            if(success)
+                System.out.println("Successfully added!");
+            else
+                System.out.println("Error! Not added!");
         }
         else if(tokens[0].equals("play"))
         {
-            model.playMusic();
+            int result;
+            result= model.playMusic();
+            
+            if(result == 1)
+                System.out.println("Playlist is empty!");
+            else if(result == 2)
+                System.out.println("File not found!");
+        }
+        else if(tokens[0].equals("pause"))
+        {
+            model.pauseMusic();
+        }
+        else if(tokens[0].equals("resume"))
+        {
+            model.resumeMusic();
         }
     }
     public void run()

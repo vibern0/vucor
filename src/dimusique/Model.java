@@ -6,10 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
+
 
 public class Model
 {
@@ -17,7 +15,7 @@ public class Model
     private FileInputStream fis;
     private BufferedInputStream bis;
     private boolean isPlaying;
-    private Player player;
+    private MusicPlayer mplayer;
     
     public Model()
     {
@@ -27,44 +25,37 @@ public class Model
     public boolean addMusicToList(String url)
     {
         File file = new File(url);
-        FileInputStream tfis;
-        BufferedInputStream tbis;
-    
-        try
-        {
-            tfis = new FileInputStream(file);
-            tbis = new BufferedInputStream(tfis);
-            if(music_list.isEmpty())
-            {
-                fis = tfis;
-                bis = tbis;
-            }
-            music_list.add(file);
-        }
-        catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        
+        if(!file.exists())
             return false;
-        }
-            
+        
+        music_list.add(file);
         return true;
     }
     public void removeMusicFromList(String name)
     {
         
     }
-    public void playMusic()
+    public int playMusic()
     {
+        if(music_list.isEmpty())
+            return 1;
+        
         try
         {
-            player = new Player(bis);
-            player.play();
-            isPlaying = false;
+            fis = new FileInputStream(music_list.get(0));
+            bis = new BufferedInputStream(fis);
+            
+            mplayer = new MusicPlayer(fis);
+            mplayer.start();
+            isPlaying = true;
         }
-        catch (JavaLayerException ex)
+        catch (FileNotFoundException ex)
         {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            return 2;
         }
+        
+        return 0;
     }
     public void stopMusic()
     {
@@ -72,10 +63,10 @@ public class Model
     }
     public void pauseMusic()
     {
-        
+        mplayer.pause();
     }
     public void resumeMusic()
     {
-        
+        mplayer.play();
     }
 }
