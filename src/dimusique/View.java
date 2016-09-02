@@ -28,13 +28,10 @@ public class View
         }
         else if(tokens[0].equals("play"))
         {
-            int result;
-            result= model.playMusic();
+            success = model.playMusic();
             
-            if(result == 1)
+            if(success == false)
                 System.out.println("Playlist is empty!");
-            else if(result == 2)
-                System.out.println("File not found!");
         }
         else if(tokens[0].equals("pause"))
         {
@@ -43,6 +40,18 @@ public class View
         else if(tokens[0].equals("resume"))
         {
             model.resumeMusic();
+        }
+        else if(tokens[0].equals("stop"))
+        {
+            model.stopMusic();
+        }
+        else if(tokens[0].equals("next"))
+        {
+            //
+        }
+        else if(tokens[0].equals("previous"))
+        {
+            //
         }
     }
     public void run()
