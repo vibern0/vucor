@@ -47,11 +47,21 @@ public class View
         }
         else if(tokens[0].equals("next"))
         {
-            //
+            if(model.isPlaying() == true)
+            {
+                model.stopMusic();
+            }
+            model.nextMusic();
+            model.playMusic();
         }
         else if(tokens[0].equals("previous"))
         {
-            //
+            if(model.isPlaying() == true)
+            {
+                model.stopMusic();
+            }
+            model.previousMusic();
+            model.playMusic();
         }
     }
     public void run()
