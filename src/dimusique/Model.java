@@ -22,19 +22,22 @@ public class Model
     private int orderMusic;
     private long pauseFrame;
     private long totalFrames;
+    private boolean isPlaying;
     
     public Model()
     {
         music_path_list = new ArrayList<>();
         player = null;
         orderMusic = 0;
+        isPlaying = false;
     }
     public boolean addMusicToList(String url)
     {
         File file = new File(url);
-        
         if(!file.exists())
+        {
             return false;
+        }
         
         music_path_list.add(url);
         return true;
@@ -43,10 +46,20 @@ public class Model
     {
         
     }
+    public List<String> getMusicList()
+    {
+        return music_path_list;
+    }
     public boolean playMusic()
     {
         if(music_path_list.isEmpty())
+        {
             return false;
+        }
+        if(isPlaying == true)
+        {
+            return false;
+        }
         
         try
         {
@@ -71,9 +84,12 @@ public class Model
                     }
                 }
             }.start();
+            
+            isPlaying = true;
         }
         catch (FileNotFoundException ex)
         {
+            System.out.println("playMusic() -> File not found!");
         }
         catch (JavaLayerException | IOException ex)
         {
@@ -84,17 +100,24 @@ public class Model
     }
     public void stopMusic()
     {
-        if(player != null)
+        if(player != null && isPlaying == true)
         {
+            isPlaying = false;
             player.close();
         }
     }
     public void pauseMusic()
     {
+        if(isPlaying == false)
+        {
+            return;
+        }
+        
         if(player != null)
         {
             try
             {
+                isPlaying = false;
                 pauseFrame = fis.available();
                 player.close();
             }
@@ -107,7 +130,13 @@ public class Model
     public boolean resumeMusic()
     {
         if(player == null)
+        {
             return false;
+        }
+        if(isPlaying == true)
+        {
+            return false;
+        }
         
         try
         {
@@ -132,9 +161,12 @@ public class Model
                     }
                 }
             }.start();
+            
+            isPlaying = true;
         }
         catch (FileNotFoundException ex)
         {
+            System.out.println("resumeMusic() -> File not found!");
         }
         catch (JavaLayerException | IOException ex)
         {
@@ -142,5 +174,31 @@ public class Model
         }
         
         return true;
+    }
+    public void nextMusic()
+    {
+        if(orderMusic == music_path_list.size() - 1)
+        {
+            orderMusic = 0;
+        }
+        else
+        {
+            orderMusic ++;
+        }
+    }
+    public void previousMusic()
+    {
+        if(orderMusic == 0)
+        {
+            orderMusic = music_path_list.size() - 1;
+        }
+        else
+        {
+            orderMusic --;
+        }
+    }
+    public boolean isPlaying()
+    {
+        return isPlaying;
     }
 }
