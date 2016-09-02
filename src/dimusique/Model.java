@@ -4,23 +4,30 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 
 public class Model
 {
-    private List<File> music_list;
+    private List<String> music_path_list;
+    private Player player;
     private FileInputStream fis;
     private BufferedInputStream bis;
-    private boolean isPlaying;
-    private MusicPlayer mplayer;
+    private int orderMusic;
+    private long pauseFrame;
+    private long totalFrames;
     
     public Model()
     {
-        music_list = new ArrayList<>();
-        isPlaying = false;
+        music_path_list = new ArrayList<>();
+        player = null;
+        orderMusic = 0;
     }
     public boolean addMusicToList(String url)
     {
@@ -29,44 +36,111 @@ public class Model
         if(!file.exists())
             return false;
         
-        music_list.add(file);
+        music_path_list.add(url);
         return true;
     }
     public void removeMusicFromList(String name)
     {
         
     }
-    public int playMusic()
+    public boolean playMusic()
     {
-        if(music_list.isEmpty())
-            return 1;
+        if(music_path_list.isEmpty())
+            return false;
         
         try
         {
-            fis = new FileInputStream(music_list.get(0));
+            fis = new FileInputStream(music_path_list.get(orderMusic));
             bis = new BufferedInputStream(fis);
             
-            mplayer = new MusicPlayer(fis);
-            mplayer.start();
-            isPlaying = true;
+            player = new Player(bis);
+            totalFrames = fis.available();
+
+            new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        player.play();
+                    }
+                    catch (JavaLayerException ex)
+                    {
+                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }.start();
         }
         catch (FileNotFoundException ex)
         {
-            return 2;
+        }
+        catch (JavaLayerException | IOException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return 0;
+        return true;
     }
     public void stopMusic()
     {
-        
+        if(player != null)
+        {
+            player.close();
+        }
     }
     public void pauseMusic()
     {
-        mplayer.pause();
+        if(player != null)
+        {
+            try
+            {
+                pauseFrame = fis.available();
+                player.close();
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
-    public void resumeMusic()
+    public boolean resumeMusic()
     {
-        mplayer.play();
+        if(player == null)
+            return false;
+        
+        try
+        {
+            fis = new FileInputStream(music_path_list.get(orderMusic));
+            bis = new BufferedInputStream(fis);
+            
+            player = new Player(bis);
+            fis.skip(totalFrames - pauseFrame);
+
+            new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        player.play();
+                    }
+                    catch (JavaLayerException ex)
+                    {
+                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }.start();
+        }
+        catch (FileNotFoundException ex)
+        {
+        }
+        catch (JavaLayerException | IOException ex)
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 }
