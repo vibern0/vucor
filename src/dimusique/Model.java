@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,20 +14,18 @@ import javazoom.jl.player.Player;
 
 public class Model
 {
-    private List<String> music_path_list;
+    private final Playlist playlist;
     private Player player;
     private FileInputStream fis;
     private BufferedInputStream bis;
-    private int orderMusic;
     private long pauseFrame;
     private long totalFrames;
     private boolean isPlaying;
     
     public Model()
     {
-        music_path_list = new ArrayList<>();
+        playlist = new Playlist();
         player = null;
-        orderMusic = 0;
         isPlaying = false;
     }
     public boolean addMusicToList(String url)
@@ -39,20 +36,20 @@ public class Model
             return false;
         }
         
-        music_path_list.add(url);
+        playlist.add(url);
         return true;
     }
-    public void removeMusicFromList(String name)
+    public boolean removeMusicFromList(String name)
     {
-        
+        return playlist.remove(name);
     }
     public List<String> getMusicList()
     {
-        return music_path_list;
+        return playlist.getNames();
     }
     public boolean playMusic()
     {
-        if(music_path_list.isEmpty())
+        if(getMusicList().isEmpty())
         {
             return false;
         }
@@ -63,7 +60,7 @@ public class Model
         
         try
         {
-            fis = new FileInputStream(music_path_list.get(orderMusic));
+            fis = new FileInputStream(playlist.getCurrentPath());
             bis = new BufferedInputStream(fis);
             
             player = new Player(bis);
@@ -140,7 +137,7 @@ public class Model
         
         try
         {
-            fis = new FileInputStream(music_path_list.get(orderMusic));
+            fis = new FileInputStream(playlist.getCurrentPath());
             bis = new BufferedInputStream(fis);
             
             player = new Player(bis);
@@ -177,28 +174,24 @@ public class Model
     }
     public void nextMusic()
     {
-        if(orderMusic == music_path_list.size() - 1)
-        {
-            orderMusic = 0;
-        }
-        else
-        {
-            orderMusic ++;
-        }
+        playlist.next();
     }
     public void previousMusic()
     {
-        if(orderMusic == 0)
-        {
-            orderMusic = music_path_list.size() - 1;
-        }
-        else
-        {
-            orderMusic --;
-        }
+        playlist.previous();
     }
     public boolean isPlaying()
     {
         return isPlaying;
+    }
+    public boolean loadPlaylist()
+    {
+        //
+        return false;
+    }
+    public boolean savePlaylist()
+    {
+        //
+        return false;
     }
 }

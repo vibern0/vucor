@@ -32,9 +32,16 @@ public class Playlist
         }
         return music_path_list.add(path);
     }
-    public boolean remove(String path)
+    public boolean remove(String path_)
     {
-        return music_path_list.remove(path);
+        for(String path : music_path_list)
+        {
+            if(path.contains(path_))
+            {
+                return music_path_list.remove(path_);
+            }
+        }
+        return false;
     }
     public void next()
     {
