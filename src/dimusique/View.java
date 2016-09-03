@@ -4,70 +4,82 @@ import java.util.Scanner;
 
 public class View
 {
-    private Model model;
+    private final Model model;
+    private boolean finish;
+    private boolean success;
+    private String input;
+    private String[] tokens;
+    private Scanner scanner;
+    
     public View()
     {
         model = new Model();
+        finish = false;
     }
     public void waitForCommand()
     {
-        boolean success;
-        String input;
-        String[] tokens;
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         input = scanner.nextLine();
         
         tokens = input.split(" ");
-        if(tokens[0].equals("add"))
-        {
-            success = model.addMusicToList(tokens[1]);
-            if(success)
-                System.out.println("Successfully added!");
-            else
-                System.out.println("Error! Not added!");
-        }
-        else if(tokens[0].equals("play"))
-        {
-            success = model.playMusic();
-            
-            if(success == false)
-                System.out.println("Playlist is empty!");
-        }
-        else if(tokens[0].equals("pause"))
-        {
-            model.pauseMusic();
-        }
-        else if(tokens[0].equals("resume"))
-        {
-            model.resumeMusic();
-        }
-        else if(tokens[0].equals("stop"))
-        {
-            model.stopMusic();
-        }
-        else if(tokens[0].equals("next"))
-        {
-            if(model.isPlaying() == true)
-            {
+        switch (tokens[0]) {
+            case "add":
+                success = model.addMusicToList(tokens[1]);
+                if(success) System.out.println("Successfully added!");
+                else System.out.println("Error! Not added!");
+                break;
+            case "remove":
+                success = model.removeMusicFromList(tokens[1]);
+                if(success) System.out.println("Successfully removed!");
+                else System.out.println("Error! Not removed!");
+                break;
+            case "play":
+                success = model.playMusic();
+                if(success == false) System.out.println("Playlist is empty!");
+                break;
+            case "pause":
+                model.pauseMusic();
+                break;
+            case "resume":
+                model.resumeMusic();
+                break;
+            case "stop":
                 model.stopMusic();
-            }
-            model.nextMusic();
-            model.playMusic();
-        }
-        else if(tokens[0].equals("previous"))
-        {
-            if(model.isPlaying() == true)
-            {
-                model.stopMusic();
-            }
-            model.previousMusic();
-            model.playMusic();
+                break;
+            case "next":
+                if(model.isPlaying() == true)
+                {
+                    model.stopMusic();
+                }   model.nextMusic();
+                model.playMusic();
+                break;
+            case "previous":
+                if(model.isPlaying() == true)
+                {
+                    model.stopMusic();
+                }   model.previousMusic();
+                model.playMusic();
+                break;
+            case "save":
+                success = model.savePlaylist();
+                if(success) System.out.println("Successfully saved!");
+                else System.out.println("Error! Not saved!");
+                break;
+            case "load":
+                success = model.loadPlaylist();
+                if(success) System.out.println("Successfully loaded!");
+                else System.out.println("Error! Not loaded!");
+                break;
+            case "finish":
+                finish = true;
+                break;
+            default:
+                break;
         }
     }
     public void run()
     {
-        int x = 1;
-        while(x == 1)
+        while(finish == false)
         {
             System.out.println("Command: ");
             waitForCommand();
