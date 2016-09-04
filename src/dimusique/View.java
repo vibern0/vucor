@@ -46,6 +46,12 @@ public class View
             case "stop":
                 model.stopMusic();
                 break;
+            case "list":
+                for(String name : model.getMusicList())
+                {
+                    System.out.println(name);
+                }
+                break;
             case "next":
                 if(model.isPlaying() == true)
                 {
@@ -72,6 +78,7 @@ public class View
                 break;
             case "finish":
                 finish = true;
+                model.finish();
                 break;
             default:
                 break;

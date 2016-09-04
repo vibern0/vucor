@@ -5,6 +5,7 @@
  */
 package dimusique;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author bernardovieira
  */
-public class Playlist
+public class Playlist implements Serializable
 {
     private final List<String> music_path_list;
     private int order;
