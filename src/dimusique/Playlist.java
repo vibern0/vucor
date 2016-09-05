@@ -19,9 +19,11 @@ public class Playlist implements Serializable
 {
     private final List<String> music_path_list;
     private int order;
+    private final String name;
     
-    public Playlist()
+    public Playlist(String name_)
     {
+        name = name_;
         music_path_list = new ArrayList<>();
         order = 0;
     }
@@ -82,5 +84,9 @@ public class Playlist implements Serializable
             result.add(p.getFileName().toString());
         }
         return result;
+    }
+    public String getPlaylistName()
+    {
+        return name;
     }
 }
