@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,8 @@ import javazoom.jl.player.Player;
 
 public class Model
 {
-    private Playlist playlist;
+    private List<Playlist> playlists;
+    private int playlist_id;
     private Player player;
     private FileInputStream fis;
     private BufferedInputStream bis;
@@ -28,9 +30,49 @@ public class Model
     
     public Model()
     {
-        playlist = new Playlist();
+        playlist_id = -1;
+        playlists = new ArrayList<>();
         player = null;
         isPlaying = false;
+    }
+    public boolean addNewPlaylist(String name)
+    {
+        playlist_id ++;
+        return playlists.add(new Playlist(name));
+    }
+    public boolean removePlaylist(String name)
+    {
+        for(Playlist playlist : playlists)
+        {
+            if(playlist.getPlaylistName().equals(name))
+            {
+                playlists.remove(playlist);
+                return true;
+            }
+        }
+        return false;
+    }
+    public Playlist getPlaylist()
+    {
+        return playlists.get(playlist_id);
+    }
+    public List<Playlist> getPlaylists()
+    {
+        return playlists;
+    }
+    public boolean changeToPlaylist(String name)
+    {
+        int p = 0;
+        for(Playlist playlist : playlists)
+        {
+            if(playlist.getPlaylistName().equals(name))
+            {
+                playlist_id = p;
+                return true;
+            }
+            p ++;
+        }
+        return false;
     }
     public boolean addMusicToList(String url)
     {
@@ -39,17 +81,20 @@ public class Model
         {
             return false;
         }
-        
-        playlist.add(url);
+        if(playlists.isEmpty())
+        {
+            return false;
+        }
+        playlists.get(playlist_id).add(url);
         return true;
     }
     public boolean removeMusicFromList(String name)
     {
-        return playlist.remove(name);
+        return playlists.get(playlist_id).remove(name);
     }
     public List<String> getMusicList()
     {
-        return playlist.getNames();
+        return playlists.get(playlist_id).getNames();
     }
     public boolean playMusic()
     {
@@ -64,7 +109,7 @@ public class Model
         
         try
         {
-            fis = new FileInputStream(playlist.getCurrentPath());
+            fis = new FileInputStream(playlists.get(playlist_id).getCurrentPath());
             bis = new BufferedInputStream(fis);
             
             player = new Player(bis);
@@ -142,7 +187,7 @@ public class Model
         
         try
         {
-            fis = new FileInputStream(playlist.getCurrentPath());
+            fis = new FileInputStream(playlists.get(playlist_id).getCurrentPath());
             bis = new BufferedInputStream(fis);
             
             player = new Player(bis);
@@ -180,11 +225,11 @@ public class Model
     }
     public void nextMusic()
     {
-        playlist.next();
+        playlists.get(playlist_id).next();
     }
     public void previousMusic()
     {
-        playlist.previous();
+        playlists.get(playlist_id).previous();
     }
     public boolean isPlaying()
     {
@@ -199,7 +244,7 @@ public class Model
             fin = new FileInputStream(file_playlist);
             try (ObjectInputStream ois = new ObjectInputStream(fin))
             {
-                playlist = (Playlist) ois.readObject();
+                playlists = (List<Playlist>) ois.readObject();
                 fin.close();
                 return true;
             }
@@ -228,7 +273,7 @@ public class Model
                 FileOutputStream fout = new FileOutputStream(file_playlist);
                 try (ObjectOutputStream oos = new ObjectOutputStream(fout))
                 {
-                    oos.writeObject(playlist);
+                    oos.writeObject(playlists);
                     oos.close();
                     return true;
                 }

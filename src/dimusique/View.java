@@ -47,24 +47,30 @@ public class View
                 model.stopMusic();
                 break;
             case "list":
-                for(String name : model.getMusicList())
-                {
-                    System.out.println(name);
-                }
+                for(String name : model.getMusicList()) System.out.println(name);
                 break;
             case "next":
-                if(model.isPlaying() == true)
-                {
-                    model.stopMusic();
-                }   model.nextMusic();
+                if(model.isPlaying() == true) model.stopMusic();
+                model.nextMusic();
                 model.playMusic();
                 break;
             case "previous":
-                if(model.isPlaying() == true)
-                {
-                    model.stopMusic();
-                }   model.previousMusic();
+                if(model.isPlaying() == true) model.stopMusic();
+                model.previousMusic();
                 model.playMusic();
+                break;
+            case "addpl":
+                model.addNewPlaylist(tokens[1]);
+                break;
+            case "removepl":
+                model.removePlaylist(tokens[1]);
+                break;
+            case "changepl":
+                model.changeToPlaylist(tokens[1]);
+                break;
+            case "listpl":
+                for(Playlist playlist : model.getPlaylists())
+                    System.out.println(playlist.getPlaylistName());
                 break;
             case "save":
                 success = model.savePlaylist();
