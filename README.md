@@ -13,19 +13,19 @@ All application data will be saved in user folder of the OS. The only data that 
 The library used to play mp3 soundtrack is [JLayer][jlayer]
 
 ####Functionalities
-[x] Play/Stop/Pause/Resume
-[x] Have multiple playlists
-[ ] Name/Rename playlists
-[x] Create/Delete playlists
-[x] List all playlists
-[x] List all songs in playlist
-[x] Save/Load playlists
-[ ] Export/Import playlists
-[ ] Keep Playing/Stop playing at the end of one music
-[ ] Change volume
-[ ] Change play mode (next/random)
-[ ] Repeat at the end
-[ ] Multi-language (currently, only english)
+[x] Play/Stop/Pause/Resume<br/>
+[x] Have multiple playlists<br/>
+[ ] Name/Rename playlists<br/>
+[x] Create/Delete playlists<br/>
+[x] List all playlists<br/>
+[x] List all songs in playlist<br/>
+[x] Save/Load playlists<br/>
+[ ] Export/Import playlists<br/>
+[ ] Keep Playing/Stop playing at the end of one music<br/>
+[ ] Change volume<br/>
+[ ] Change play mode (next/random)<br/>
+[ ] Repeat at the end<br/>
+[ ] Multi-language (currently, only english)<br/>
 
 
 [license-svg]: https://img.shields.io/badge/license-GNU%20v.3-blue.svg
