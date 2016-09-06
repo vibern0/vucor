@@ -52,6 +52,18 @@ public class Model
         }
         return false;
     }
+    public boolean renamePlaylist(String old_name, String new_name)
+    {
+        for(Playlist playlist : playlists)
+        {
+            if(playlist.getPlaylistName().equals(old_name))
+            {
+                playlist.rename(new_name);
+                return true;
+            }
+        }
+        return false;
+    }
     public Playlist getPlaylist()
     {
         return playlists.get(playlist_id);
@@ -123,6 +135,10 @@ public class Model
                     try
                     {
                         player.play();
+                        if(isPlaying == true)
+                        {
+                            autoNextMusic();
+                        }
                     }
                     catch (JavaLayerException ex)
                     {
@@ -151,6 +167,7 @@ public class Model
         {
             isPlaying = false;
             player.close();
+            thread_music.interrupt();
         }
     }
     public void pauseMusic()
@@ -167,6 +184,7 @@ public class Model
                 isPlaying = false;
                 pauseFrame = fis.available();
                 player.close();
+                thread_music.interrupt();
             }
             catch (IOException ex)
             {
@@ -201,6 +219,10 @@ public class Model
                     try
                     {
                         player.play();
+                        if(isPlaying == true)
+                        {
+                            autoNextMusic();
+                        }
                     }
                     catch (JavaLayerException ex)
                     {
@@ -225,11 +247,26 @@ public class Model
     }
     public void nextMusic()
     {
+        stopMusic();
         playlists.get(playlist_id).next();
+        if(isPlaying == true)
+        {
+            playMusic();
+        }
     }
     public void previousMusic()
     {
+        stopMusic();
         playlists.get(playlist_id).previous();
+        if(isPlaying == true)
+        {
+            playMusic();
+        }
+    }
+    public void autoNextMusic()
+    {
+        nextMusic();
+        playMusic();
     }
     public boolean isPlaying()
     {
@@ -244,6 +281,7 @@ public class Model
             fin = new FileInputStream(file_playlist);
             try (ObjectInputStream ois = new ObjectInputStream(fin))
             {
+                playlist_id = 0;
                 playlists = (List<Playlist>) ois.readObject();
                 fin.close();
                 return true;
@@ -287,6 +325,11 @@ public class Model
     }
     public void finish()
     {
+        if(player != null)
+        {
+            isPlaying = false;
+            player.close();
+        }
         thread_music.interrupt();
     }
 }
