@@ -19,7 +19,7 @@ public class Playlist implements Serializable
 {
     private final List<String> music_path_list;
     private int order;
-    private final String name;
+    private String name;
     
     public Playlist(String name_)
     {
@@ -45,6 +45,10 @@ public class Playlist implements Serializable
             }
         }
         return false;
+    }
+    public void rename(String new_name)
+    {
+        name = new_name;
     }
     public void next()
     {
