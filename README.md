@@ -15,7 +15,7 @@ The library used to play mp3 soundtrack is [JLayer][jlayer]
 ####Functionalities
 [x] Play/Stop/Pause/Resume<br/>
 [x] Have multiple playlists<br/>
-[ ] Name/Rename playlists<br/>
+[x] Name/Rename playlists<br/>
 [x] Create/Delete playlists<br/>
 [x] List all playlists<br/>
 [x] List all songs in playlist<br/>
@@ -26,6 +26,7 @@ The library used to play mp3 soundtrack is [JLayer][jlayer]
 [ ] Change play mode (next/random)<br/>
 [ ] Repeat at the end<br/>
 [ ] Multi-language (currently, only english)<br/>
+[ ] Equalizer<br/>
 
 
 [license-svg]: https://img.shields.io/badge/license-GNU%20v.3-blue.svg
