@@ -1,7 +1,14 @@
-package dimusique;
+package visual;
 
+import core.Playlist;
+import core.Model;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class View
 {
     private final Model model;
@@ -10,19 +17,33 @@ public class View
     private String input;
     private String[] tokens;
     private Scanner scanner;
+    private final ArrayList<String> cmd_params;
+    private final HashMap<String, Integer> cmd_n_params;
     
     public View()
     {
-        model = new Model();
-        finish = false;
+        this.model = new Model();
+        this.finish = false;
+        this.cmd_params = new ArrayList<>();
+        this.cmd_n_params = new HashMap<>();
+        loadCommands();
     }
     public void waitForCommand()
     {
         scanner = new Scanner(System.in);
         input = scanner.nextLine();
         
+        if(!checkParams(input))
+        {
+            System.out.println("Parameters missing!");
+            return;
+        }
+        
         tokens = input.split(" ");
         switch (tokens[0]) {
+            case "help":
+                showHelp();
+                break;
             case "add":
                 success = model.addMusicToList(tokens[1]);
                 if(success) System.out.println("Successfully added!");
@@ -73,14 +94,26 @@ public class View
                     System.out.println(playlist.getPlaylistName());
                 break;
             case "save":
-                success = model.savePlaylist();
-                if(success) System.out.println("Successfully saved!");
-                else System.out.println("Error! Not saved!");
+                try
+                {
+                    model.savePlaylist();
+                    System.out.println("Successfully saved!");
+                }
+                catch (IOException ex)
+                {
+                    System.out.println("Error! Not saved!");
+                }
                 break;
             case "load":
-                success = model.loadPlaylist();
-                if(success) System.out.println("Successfully loaded!");
-                else System.out.println("Error! Not loaded!");
+                try
+                {
+                    model.loadPlaylist();
+                    System.out.println("Successfully saved!");
+                }
+                catch (IOException | ClassNotFoundException ex)
+                {
+                    System.out.println("Error! Not loaded!");
+                }
                 break;
             case "finish":
                 finish = true;
@@ -97,5 +130,46 @@ public class View
             System.out.println("Command: ");
             waitForCommand();
         }
+    }
+    private void loadCommands()
+    {
+        cmd_params.add("add <path>");
+        cmd_params.add("remove <path>");
+        cmd_params.add("play");
+        cmd_params.add("pause");
+        cmd_params.add("resume");
+        cmd_params.add("stop");
+        cmd_params.add("list");
+        cmd_params.add("next");
+        cmd_params.add("previous");
+        cmd_params.add("addpl <playlist-name>");
+        cmd_params.add("removepl <playlist-name>");
+        cmd_params.add("changepl <playlist-name>");
+        cmd_params.add("listpl");
+        cmd_params.add("save");
+        cmd_params.add("load");
+        cmd_params.add("finnish");
+        //
+        cmd_n_params.put("add",         1);
+        cmd_n_params.put("remove",      1);
+        cmd_n_params.put("addpl",       1);
+        cmd_n_params.put("removepl",    1);
+        cmd_n_params.put("changepl",    1);
+    }
+    private boolean checkParams(String command)
+    {
+        String [] peaces = command.split(" ");
+        if(cmd_n_params.containsKey(peaces[0]))
+        {
+            return (cmd_n_params.get(peaces[0]) == peaces.length);
+        }
+        return true;
+    }
+    private void showHelp()
+    {
+        System.out.println("Commands available:");
+        cmd_params.forEach((cmd) -> {
+            System.out.println(cmd);
+        });
     }
 }

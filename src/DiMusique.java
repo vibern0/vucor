@@ -1,4 +1,5 @@
-package dimusique;
+
+import visual.View;
 
 public class DiMusique 
 {
