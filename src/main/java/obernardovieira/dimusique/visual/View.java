@@ -1,14 +1,11 @@
-package visual;
+package obernardovieira.dimusique.visual;
 
-import core.Playlist;
-import core.Model;
-import java.io.FileNotFoundException;
+import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.core.Model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 public class View
 {
     private final Model model;

@@ -1,5 +1,6 @@
+package obernardovieira.dimusique;
 
-import visual.View;
+import obernardovieira.dimusique.visual.View;
 
 public class DiMusique 
 {
