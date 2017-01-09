@@ -1,4 +1,4 @@
-package dimusique;
+package core;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -272,56 +272,32 @@ public class Model
     {
         return isPlaying;
     }
-    public boolean loadPlaylist()
+    @SuppressWarnings("unchecked")
+    public void loadPlaylist() throws FileNotFoundException, IOException,
+            ClassNotFoundException
     {
-        try
+        File file_playlist = new File(
+                System.getProperty("user.home") + "/.dimusique.playlist");
+        FileInputStream fin;
+        fin = new FileInputStream(file_playlist);
+        try (ObjectInputStream ois = new ObjectInputStream(fin))
         {
-            File file_playlist = new File("/home/" + System.getProperty("user.name") + "/.dimusique.playlist");
-            FileInputStream fin;
-            fin = new FileInputStream(file_playlist);
-            try (ObjectInputStream ois = new ObjectInputStream(fin))
-            {
-                playlist_id = 0;
-                playlists = (List<Playlist>) ois.readObject();
-                fin.close();
-                return true;
-            }
+            playlist_id = 0;
+            playlists = (List<Playlist>) ois.readObject();
+            fin.close();
         }
-        catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (IOException | ClassNotFoundException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return false;
     }
-    public boolean savePlaylist()
+    public void savePlaylist() throws FileNotFoundException, IOException
     {
         //
-        String OS = System.getProperty("os.name").toLowerCase();
-        if(OS.contains("nix") || OS.contains("nux") || OS.contains("aix") )
+        File file_playlist = new File(
+                System.getProperty("user.home") + "/.dimusique.playlist");
+        FileOutputStream fout = new FileOutputStream(file_playlist);
+        try (ObjectOutputStream oos = new ObjectOutputStream(fout))
         {
-            try
-            {
-                File file_playlist = new File("/home/" + System.getProperty("user.name") + "/.dimusique.playlist");
-                
-                FileOutputStream fout = new FileOutputStream(file_playlist);
-                try (ObjectOutputStream oos = new ObjectOutputStream(fout))
-                {
-                    oos.writeObject(playlists);
-                    oos.close();
-                    return true;
-                }
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            oos.writeObject(playlists);
+            oos.close();
         }
-        return false;
     }
     public void finish()
     {
