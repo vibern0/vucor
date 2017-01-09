@@ -1,17 +1,9 @@
 language: java
 
 # get us on the new container based builds, we're not using any fancyness
-sudo: false
+sudo: required
 
-before_install:
-  - wget http://apache.claz.org/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
-  - tar zxvf apache-maven-3.1.1-bin.tar.gz
-  - chmod +x apache-maven-3.1.1/bin/mvn
-  - export M2_HOME=$PWD/apache-maven-3.1.1
-  - export PATH=$PWD/apache-maven-3.1.1/bin:${PATH}
-  - hash -r
-
-script: mvn -q install -P examples
+script: mvn test -B
 
 jdk:
 - openjdk7
