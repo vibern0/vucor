@@ -1,2 +1,2 @@
 language: java
-script: mvn test -B
+script: mvn -Pitest -DargLine="-Dcom.basho.riak.search=true -Dcom.basho.riak.2i=true" clean verify
