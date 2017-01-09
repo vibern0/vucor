@@ -1,4 +1,2 @@
 language: java
-sudo: false
-before_install: mvn install -DskipTests=true -DfinalName=helloci
-script: mvn clean verify
+script: mvn test -B
