@@ -1,4 +1,4 @@
-package core;
+package obernardovieira.dimusique.core;
 
 import java.io.BufferedInputStream;
 import java.io.File;
