@@ -1,11 +1,11 @@
 package obernardovieira.dimusique.visual;
 
-import obernardovieira.dimusique.core.Playlist;
 import obernardovieira.dimusique.core.Model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import javazoom.jl.decoder.JavaLayerException;
 public class View
 {
     private final Model model;
@@ -42,18 +42,24 @@ public class View
                 showHelp();
                 break;
             case "add":
-                success = model.addMusicToList(tokens[1]);
+                success = model.getLastPlaylist().add(tokens[1]);
                 if(success) System.out.println("Successfully added!");
                 else System.out.println("Error! Not added!");
                 break;
             case "remove":
-                success = model.removeMusicFromList(tokens[1]);
+                success = model.getLastPlaylist().remove(tokens[1]);
                 if(success) System.out.println("Successfully removed!");
                 else System.out.println("Error! Not removed!");
                 break;
             case "play":
-                success = model.playMusic();
-                if(success == false) System.out.println("Playlist is empty!");
+                try
+                {
+                    model.playMusic();
+                }
+                catch (JavaLayerException | IOException ex)
+                {
+                    System.out.println("Playlist is empty!");
+                }
                 break;
             case "pause":
                 model.pauseMusic();
@@ -65,17 +71,33 @@ public class View
                 model.stopMusic();
                 break;
             case "list":
-                for(String name : model.getMusicList()) System.out.println(name);
+                model.getLastPlaylist().getNames().forEach((name) -> {
+                    System.out.println(name);
+                });
                 break;
             case "next":
                 if(model.isPlaying() == true) model.stopMusic();
-                model.nextMusic();
-                model.playMusic();
+                try
+                {
+                    model.nextMusic();
+                    model.playMusic();
+                }
+                catch (JavaLayerException | IOException ex)
+                {
+                    System.out.println("Error chenging to next music.");
+                }
                 break;
             case "previous":
                 if(model.isPlaying() == true) model.stopMusic();
-                model.previousMusic();
-                model.playMusic();
+                try
+                {
+                    model.previousMusic();
+                    model.playMusic();
+                }
+                catch (JavaLayerException | IOException ex)
+                {
+                    System.out.println("Error chenging to previous music.");
+                }
                 break;
             case "addpl":
                 model.addNewPlaylist(tokens[1]);
@@ -87,8 +109,9 @@ public class View
                 model.changeToPlaylist(tokens[1]);
                 break;
             case "listpl":
-                for(Playlist playlist : model.getPlaylists())
+                model.getPlaylists().forEach((playlist) -> {
                     System.out.println(playlist.getPlaylistName());
+                });
                 break;
             case "save":
                 try
@@ -158,7 +181,7 @@ public class View
         String [] peaces = command.split(" ");
         if(cmd_n_params.containsKey(peaces[0]))
         {
-            return (cmd_n_params.get(peaces[0]) == peaces.length);
+            return (cmd_n_params.get(peaces[0]) >= peaces.length - 1);
         }
         return true;
     }
