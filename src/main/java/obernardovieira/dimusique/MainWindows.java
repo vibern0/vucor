@@ -5,6 +5,7 @@
  */
 package obernardovieira.dimusique;
 
+import obernardovieira.dimusique.core.Basic;
 import obernardovieira.dimusique.frames.*;
 
 /**
@@ -18,14 +19,35 @@ public class MainWindows extends javax.swing.JFrame {
      */
     public MainWindows() {
         initComponents();
-        panel_upper.add(new FrameOptions());
-        panel_upper.add(new FrameMain());
-        panel_upper.invalidate();
-        panel_upper.repaint();
+        panel_left_upper.add(new FrameOptions(this));
+        panel_left_upper.invalidate();
+        panel_left_upper.repaint();
         
-        pannel_lower.add(new FramePlaying());
+        panel_right_upper.add(new FramePlaying());
+        panel_right_upper.invalidate();
+        panel_right_upper.repaint();
+        
+        pannel_lower.add(new FrameControls());
         pannel_lower.invalidate();
         pannel_lower.repaint();
+    }
+    
+    public void setViewer(Integer _case)
+    {
+        if(_case.equals(Basic.framePlaylists))
+        {
+            panel_right_upper.removeAll();
+            panel_right_upper.add(new FramePlaylists());
+        }
+        else if(_case.equals(Basic.framePlaying))
+        {
+            panel_right_upper.removeAll();
+            panel_right_upper.add(new FramePlaying());
+        }
+        panel_right_upper.invalidate();
+        panel_right_upper.repaint();
+        panel_right_upper.setVisible(false);
+        panel_right_upper.setVisible(true);
     }
 
     /**
@@ -39,16 +61,25 @@ public class MainWindows extends javax.swing.JFrame {
 
         panel_main = new javax.swing.JPanel();
         panel_upper = new javax.swing.JPanel();
+        panel_left_upper = new javax.swing.JPanel();
+        panel_right_upper = new javax.swing.JPanel();
         pannel_lower = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(600, 500));
 
-        panel_main.setMaximumSize(new java.awt.Dimension(400, 500));
-        panel_main.setMinimumSize(new java.awt.Dimension(400, 500));
-        panel_main.setPreferredSize(new java.awt.Dimension(400, 500));
+        panel_main.setMinimumSize(new java.awt.Dimension(0, 0));
+        panel_main.setPreferredSize(new java.awt.Dimension(600, 500));
         panel_main.setLayout(new javax.swing.BoxLayout(panel_main, javax.swing.BoxLayout.Y_AXIS));
 
         panel_upper.setLayout(new javax.swing.BoxLayout(panel_upper, javax.swing.BoxLayout.X_AXIS));
+
+        panel_left_upper.setLayout(new javax.swing.BoxLayout(panel_left_upper, javax.swing.BoxLayout.LINE_AXIS));
+        panel_upper.add(panel_left_upper);
+
+        panel_right_upper.setLayout(new javax.swing.BoxLayout(panel_right_upper, javax.swing.BoxLayout.LINE_AXIS));
+        panel_upper.add(panel_right_upper);
+
         panel_main.add(panel_upper);
 
         pannel_lower.setLayout(new javax.swing.BoxLayout(pannel_lower, javax.swing.BoxLayout.LINE_AXIS));
@@ -58,9 +89,7 @@ public class MainWindows extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel_main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +137,9 @@ public class MainWindows extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel panel_left_upper;
     private javax.swing.JPanel panel_main;
+    private javax.swing.JPanel panel_right_upper;
     private javax.swing.JPanel panel_upper;
     private javax.swing.JPanel pannel_lower;
     // End of variables declaration//GEN-END:variables
