@@ -42,13 +42,19 @@ public class Model
     }
     public boolean removePlaylist(String name)
     {
+        int p = 0;
         for(Playlist playlist : playlists)
         {
             if(playlist.getPlaylistName().equals(name))
             {
+                if(p == playlist_id)
+                {
+                    playlist_id = -1;
+                }
                 playlists.remove(playlist);
                 return true;
             }
+            p ++;
         }
         return false;
     }
@@ -64,9 +70,9 @@ public class Model
         }
         return false;
     }
-    public Playlist getPlaylist()
+    public Playlist getLastPlaylist()
     {
-        return playlists.get(playlist_id);
+        return playlists.get(playlists.size() - 1);
     }
     public List<Playlist> getPlaylists()
     {
@@ -86,80 +92,40 @@ public class Model
         }
         return false;
     }
-    public boolean addMusicToList(String url)
+    public void playMusic()
+            throws FileNotFoundException, JavaLayerException, IOException
     {
-        File file = new File(url);
-        if(!file.exists())
+        if( playlist_id == -1 ||
+            playlists.get(playlist_id).getNames().isEmpty() ||
+            isPlaying)
         {
-            return false;
-        }
-        if(playlists.isEmpty())
-        {
-            return false;
-        }
-        playlists.get(playlist_id).add(url);
-        return true;
-    }
-    public boolean removeMusicFromList(String name)
-    {
-        return playlists.get(playlist_id).remove(name);
-    }
-    public List<String> getMusicList()
-    {
-        return playlists.get(playlist_id).getNames();
-    }
-    public boolean playMusic()
-    {
-        if(getMusicList().isEmpty())
-        {
-            return false;
-        }
-        if(isPlaying == true)
-        {
-            return false;
+            throw new IOException();
         }
         
-        try
-        {
-            fis = new FileInputStream(playlists.get(playlist_id).getCurrentPath());
-            bis = new BufferedInputStream(fis);
-            
-            player = new Player(bis);
-            totalFrames = fis.available();
+        fis = new FileInputStream(playlists.get(playlist_id).getCurrentPath());
+        bis = new BufferedInputStream(fis);
 
-            thread_music = new Thread()
+        player = new Player(bis);
+        totalFrames = fis.available();
+
+        thread_music = new Thread()
+        {
+            @Override
+            public void run()
             {
-                @Override
-                public void run()
+                try
                 {
-                    try
+                    player.play();
+                    if(isPlaying == true)
                     {
-                        player.play();
-                        if(isPlaying == true)
-                        {
-                            autoNextMusic();
-                        }
-                    }
-                    catch (JavaLayerException ex)
-                    {
-                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                        autoNextMusic();
                     }
                 }
-            };
-            thread_music.start();
-            
-            isPlaying = true;
-        }
-        catch (FileNotFoundException ex)
-        {
-            System.out.println("playMusic() -> File not found!");
-        }
-        catch (JavaLayerException | IOException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return true;
+                catch (JavaLayerException | IOException ex) { }
+            }
+        };
+        thread_music.start();
+        isPlaying = true;
     }
     public void stopMusic()
     {
@@ -224,10 +190,7 @@ public class Model
                             autoNextMusic();
                         }
                     }
-                    catch (JavaLayerException ex)
-                    {
-                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    catch (JavaLayerException | IOException ex) { }
                 }
             };
             thread_music.start();
@@ -245,7 +208,7 @@ public class Model
         
         return true;
     }
-    public void nextMusic()
+    public void nextMusic() throws JavaLayerException, IOException
     {
         stopMusic();
         playlists.get(playlist_id).next();
@@ -254,7 +217,7 @@ public class Model
             playMusic();
         }
     }
-    public void previousMusic()
+    public void previousMusic() throws JavaLayerException, IOException
     {
         stopMusic();
         playlists.get(playlist_id).previous();
@@ -263,7 +226,7 @@ public class Model
             playMusic();
         }
     }
-    public void autoNextMusic()
+    public void autoNextMusic() throws JavaLayerException, IOException
     {
         nextMusic();
         playMusic();
