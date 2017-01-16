@@ -29,8 +29,7 @@ public class FramePlaying extends javax.swing.JPanel {
 
         panel_info = new javax.swing.JPanel();
         panel_disc_image = new javax.swing.JPanel();
-        scroll_playlist = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        panel_music_list = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(530, 330));
         setRequestFocusEnabled(false);
@@ -39,8 +38,6 @@ public class FramePlaying extends javax.swing.JPanel {
         panel_info.setPreferredSize(new java.awt.Dimension(530, 200));
         panel_info.setRequestFocusEnabled(false);
         panel_info.setVerifyInputWhenFocusTarget(false);
-
-        panel_disc_image.setBackground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout panel_disc_imageLayout = new javax.swing.GroupLayout(panel_disc_image);
         panel_disc_image.setLayout(panel_disc_imageLayout);
@@ -70,38 +67,31 @@ public class FramePlaying extends javax.swing.JPanel {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        scroll_playlist.setPreferredSize(new java.awt.Dimension(530, 100));
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        scroll_playlist.setViewportView(jList1);
+        panel_music_list.setLayout(new javax.swing.BoxLayout(panel_music_list, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panel_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(scroll_playlist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll_playlist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panel_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel panel_disc_image;
     private javax.swing.JPanel panel_info;
-    private javax.swing.JScrollPane scroll_playlist;
+    private javax.swing.JPanel panel_music_list;
     // End of variables declaration//GEN-END:variables
 }
