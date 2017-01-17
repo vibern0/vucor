@@ -16,6 +16,7 @@ public class FramePlaying extends javax.swing.JPanel {
      */
     public FramePlaying() {
         initComponents();
+        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png", 256, 256, 178, 178));
     }
 
     /**
@@ -29,6 +30,8 @@ public class FramePlaying extends javax.swing.JPanel {
 
         panel_info = new javax.swing.JPanel();
         panel_disc_image = new javax.swing.JPanel();
+        label_music_name = new javax.swing.JLabel();
+        label_album_name = new javax.swing.JLabel();
         panel_music_list = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(530, 330));
@@ -39,16 +42,24 @@ public class FramePlaying extends javax.swing.JPanel {
         panel_info.setRequestFocusEnabled(false);
         panel_info.setVerifyInputWhenFocusTarget(false);
 
+        panel_disc_image.setBackground(new java.awt.Color(51, 51, 255));
+
         javax.swing.GroupLayout panel_disc_imageLayout = new javax.swing.GroupLayout(panel_disc_image);
         panel_disc_image.setLayout(panel_disc_imageLayout);
         panel_disc_imageLayout.setHorizontalGroup(
             panel_disc_imageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 178, Short.MAX_VALUE)
         );
         panel_disc_imageLayout.setVerticalGroup(
             panel_disc_imageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        label_music_name.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
+        label_music_name.setText("Music name");
+
+        label_album_name.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
+        label_album_name.setText("Unkown album • Unknow year");
 
         javax.swing.GroupLayout panel_infoLayout = new javax.swing.GroupLayout(panel_info);
         panel_info.setLayout(panel_infoLayout);
@@ -57,14 +68,26 @@ public class FramePlaying extends javax.swing.JPanel {
             .addGroup(panel_infoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panel_disc_image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_music_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_album_name, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panel_infoLayout.setVerticalGroup(
             panel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_infoLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(panel_disc_image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGroup(panel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_infoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panel_disc_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panel_infoLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(label_music_name)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(label_album_name)
+                        .addGap(0, 57, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         panel_music_list.setLayout(new javax.swing.BoxLayout(panel_music_list, javax.swing.BoxLayout.LINE_AXIS));
@@ -90,6 +113,8 @@ public class FramePlaying extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel label_album_name;
+    private javax.swing.JLabel label_music_name;
     private javax.swing.JPanel panel_disc_image;
     private javax.swing.JPanel panel_info;
     private javax.swing.JPanel panel_music_list;
