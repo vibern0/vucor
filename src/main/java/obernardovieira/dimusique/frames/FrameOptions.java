@@ -40,14 +40,17 @@ public class FrameOptions extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
-        bt_playlist.setText("P");
+        bt_playlist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/032__list_item.png"))); // NOI18N
         bt_playlist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_playlistActionPerformed(evt);
             }
         });
 
-        bt_artists.setText("A");
+        bt_artists.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/140__music.png"))); // NOI18N
+        bt_artists.setMaximumSize(new java.awt.Dimension(53, 53));
+        bt_artists.setMinimumSize(new java.awt.Dimension(53, 53));
+        bt_artists.setPreferredSize(new java.awt.Dimension(60, 60));
         bt_artists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_artistsActionPerformed(evt);
@@ -58,16 +61,16 @@ public class FrameOptions extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bt_playlist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(bt_artists, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(bt_playlist, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bt_artists, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(bt_playlist, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bt_playlist, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_artists, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 202, Short.MAX_VALUE))
+                .addGap(0, 203, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
