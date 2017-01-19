@@ -5,10 +5,11 @@
  */
 package obernardovieira.dimusique.frames;
 
+import obernardovieira.dimusique.frames.elements.FramePlaylistsElement;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import obernardovieira.dimusique.MainWindows;
-import obernardovieira.dimusique.core.Data;
+import obernardovieira.dimusique.core.data.DataFiles;
 import obernardovieira.dimusique.core.Playlist;
 
 /**
@@ -25,7 +26,7 @@ public class FramePlaylists extends javax.swing.JPanel {
     {
         initComponents();
         this.window = (MainWindows)window;
-        ArrayList<Playlist> playlists = Data.loadData();
+        ArrayList<Playlist> playlists = new ArrayList<>();
         
         if(playlists.isEmpty())
         {
