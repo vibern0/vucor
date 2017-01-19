@@ -11,8 +11,8 @@ package obernardovieira.dimusique.core;
  */
 public class Basic {
     
-    public static final Integer     framePlaying    = 1;
-    public static final Integer     framePlaylists  = 2;
-    
+    public static final Integer     framePlaying        = 1;
+    public static final Integer     framePlaylists      = 2;
+    public static final Integer     frameNewPlaylist    = 3;
     
 }

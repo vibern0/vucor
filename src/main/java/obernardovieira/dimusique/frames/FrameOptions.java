@@ -19,7 +19,8 @@ public class FrameOptions extends javax.swing.JPanel {
      * Creates new form FrameOptions
      */
     private final MainWindows window;
-    public FrameOptions(JFrame window) {
+    public FrameOptions(JFrame window)
+    {
         initComponents();
         this.window = (MainWindows)window;
     }
@@ -33,27 +34,30 @@ public class FrameOptions extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bt_playlist = new javax.swing.JButton();
-        bt_artists = new javax.swing.JButton();
+        bt_playlists = new javax.swing.JButton();
+        bt_playing = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(60, 330));
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
-        bt_playlist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/032__list_item.png"))); // NOI18N
-        bt_playlist.addActionListener(new java.awt.event.ActionListener() {
+        bt_playlists.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/032__list_item.png"))); // NOI18N
+        bt_playlists.setToolTipText("Show playlists");
+        bt_playlists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_playlistActionPerformed(evt);
+                bt_playlistsActionPerformed(evt);
             }
         });
 
-        bt_artists.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/140__music.png"))); // NOI18N
-        bt_artists.setMaximumSize(new java.awt.Dimension(53, 53));
-        bt_artists.setMinimumSize(new java.awt.Dimension(53, 53));
-        bt_artists.setPreferredSize(new java.awt.Dimension(60, 60));
-        bt_artists.addActionListener(new java.awt.event.ActionListener() {
+        bt_playing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/140__music.png"))); // NOI18N
+        bt_playing.setToolTipText("Show current playlist");
+        bt_playing.setMaximumSize(new java.awt.Dimension(53, 53));
+        bt_playing.setMinimumSize(new java.awt.Dimension(53, 53));
+        bt_playing.setPreferredSize(new java.awt.Dimension(60, 60));
+        bt_playing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_artistsActionPerformed(evt);
+                bt_playingActionPerformed(evt);
             }
         });
 
@@ -61,30 +65,30 @@ public class FrameOptions extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bt_playlist, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(bt_artists, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bt_playlists, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bt_playing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(bt_playlist, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bt_playlists, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_artists, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bt_playing, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 203, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_playlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_playlistActionPerformed
+    private void bt_playlistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_playlistsActionPerformed
         window.setViewer(Basic.framePlaylists);
-    }//GEN-LAST:event_bt_playlistActionPerformed
+    }//GEN-LAST:event_bt_playlistsActionPerformed
 
-    private void bt_artistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_artistsActionPerformed
+    private void bt_playingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_playingActionPerformed
         window.setViewer(Basic.framePlaying);
-    }//GEN-LAST:event_bt_artistsActionPerformed
+    }//GEN-LAST:event_bt_playingActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_artists;
-    private javax.swing.JButton bt_playlist;
+    private javax.swing.JButton bt_playing;
+    private javax.swing.JButton bt_playlists;
     // End of variables declaration//GEN-END:variables
 }

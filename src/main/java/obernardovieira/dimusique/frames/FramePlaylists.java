@@ -5,6 +5,13 @@
  */
 package obernardovieira.dimusique.frames;
 
+import obernardovieira.dimusique.frames.elements.FramePlaylistsElement;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import obernardovieira.dimusique.MainWindows;
+import obernardovieira.dimusique.core.data.DataFiles;
+import obernardovieira.dimusique.core.Playlist;
+
 /**
  *
  * @author user
@@ -14,8 +21,25 @@ public class FramePlaylists extends javax.swing.JPanel {
     /**
      * Creates new form FramePlaylists
      */
-    public FramePlaylists() {
+    private final MainWindows window;
+    public FramePlaylists(JFrame window)
+    {
         initComponents();
+        this.window = (MainWindows)window;
+        ArrayList<Playlist> playlists = new ArrayList<>();
+        
+        if(playlists.isEmpty())
+        {
+            panel_playlists.add(new FrameNoData(window));
+        }
+        else
+        {
+            playlists.forEach((element) -> {
+                panel_playlists.add(new FramePlaylistsElement(element));
+            });
+        }
+        panel_playlists.invalidate();
+        panel_playlists.repaint();
     }
 
     /**
@@ -27,41 +51,39 @@ public class FramePlaylists extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        label_title = new javax.swing.JLabel();
+        scrollpane_playlists = new javax.swing.JScrollPane();
+        panel_playlists = new javax.swing.JPanel();
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        label_title.setFont(new java.awt.Font("Yu Gothic Light", 0, 28)); // NOI18N
+        label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_title.setText("You playlists");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        scrollpane_playlists.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        panel_playlists.setLayout(new javax.swing.BoxLayout(panel_playlists, javax.swing.BoxLayout.Y_AXIS));
+        scrollpane_playlists.setViewportView(panel_playlists);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
+            .addComponent(label_title, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .addComponent(scrollpane_playlists)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addComponent(label_title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollpane_playlists, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel label_title;
+    private javax.swing.JPanel panel_playlists;
+    private javax.swing.JScrollPane scrollpane_playlists;
     // End of variables declaration//GEN-END:variables
 }

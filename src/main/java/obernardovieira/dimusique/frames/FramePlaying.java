@@ -5,6 +5,9 @@
  */
 package obernardovieira.dimusique.frames;
 
+import javax.swing.JFrame;
+import obernardovieira.dimusique.MainWindows;
+
 /**
  *
  * @author user
@@ -14,9 +17,16 @@ public class FramePlaying extends javax.swing.JPanel {
     /**
      * Creates new form FramePlaylist
      */
-    public FramePlaying() {
+    private final MainWindows window;
+    public FramePlaying(JFrame window)
+    {
         initComponents();
+        this.window = (MainWindows)window;
         panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png", 256, 256, 178, 178));
+    
+        panel_music_list.add(new FrameNoData(window));
+        panel_music_list.invalidate();
+        panel_music_list.repaint();
     }
 
     /**
@@ -32,6 +42,7 @@ public class FramePlaying extends javax.swing.JPanel {
         panel_disc_image = new javax.swing.JPanel();
         label_music_name = new javax.swing.JLabel();
         label_album_name = new javax.swing.JLabel();
+        scrollpane_music_list = new javax.swing.JScrollPane();
         panel_music_list = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(530, 330));
@@ -90,16 +101,17 @@ public class FramePlaying extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        panel_music_list.setLayout(new javax.swing.BoxLayout(panel_music_list, javax.swing.BoxLayout.LINE_AXIS));
+        panel_music_list.setLayout(new javax.swing.BoxLayout(panel_music_list, javax.swing.BoxLayout.Y_AXIS));
+        scrollpane_music_list.setViewportView(panel_music_list);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panel_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(scrollpane_music_list)
+                    .addComponent(panel_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,7 +119,7 @@ public class FramePlaying extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                .addComponent(scrollpane_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -118,5 +130,6 @@ public class FramePlaying extends javax.swing.JPanel {
     private javax.swing.JPanel panel_disc_image;
     private javax.swing.JPanel panel_info;
     private javax.swing.JPanel panel_music_list;
+    private javax.swing.JScrollPane scrollpane_music_list;
     // End of variables declaration//GEN-END:variables
 }

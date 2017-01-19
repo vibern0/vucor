@@ -1,15 +1,12 @@
 package obernardovieira.dimusique.core;
 
+import obernardovieira.dimusique.core.data.DataModel;
+import obernardovieira.dimusique.core.data.DataFiles;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
@@ -18,8 +15,7 @@ import javazoom.jl.player.Player;
 
 public class Model
 {
-    private List<Playlist> playlists;
-    private int playlist_id;
+    private final DataModel dataModel;
     private Player player;
     private FileInputStream fis;
     private BufferedInputStream bis;
@@ -28,28 +24,33 @@ public class Model
     private boolean isPlaying;
     private Thread thread_music;
     
-    public Model()
+    public Model() throws IOException,
+            FileNotFoundException, ClassNotFoundException
     {
-        playlist_id = -1;
-        playlists = new ArrayList<>();
+        dataModel = DataFiles.loadData();
+        if(dataModel != null)
+        {
+            
+        }
         player = null;
         isPlaying = false;
     }
     public boolean addNewPlaylist(String name)
     {
-        playlist_id ++;
-        return playlists.add(new Playlist(name));
+        return dataModel.addPlaylist(new Playlist(name));
     }
     public boolean removePlaylist(String name)
     {
+        ArrayList<Playlist> playlists =  dataModel.getPlaylists();
+        Integer on_playlist = dataModel.getOnPlaylist();
         int p = 0;
         for(Playlist playlist : playlists)
         {
             if(playlist.getPlaylistName().equals(name))
             {
-                if(p == playlist_id)
+                if(p == on_playlist)
                 {
-                    playlist_id = -1;
+                    dataModel.setOnPlaylist(-1);
                 }
                 playlists.remove(playlist);
                 return true;
@@ -60,32 +61,27 @@ public class Model
     }
     public boolean renamePlaylist(String old_name, String new_name)
     {
+        ArrayList<Playlist> playlists =  dataModel.getPlaylists();
         for(Playlist playlist : playlists)
         {
             if(playlist.getPlaylistName().equals(old_name))
             {
                 playlist.rename(new_name);
+                dataModel.setPlaylists(playlists);
                 return true;
             }
         }
         return false;
     }
-    public Playlist getLastPlaylist()
-    {
-        return playlists.get(playlists.size() - 1);
-    }
-    public List<Playlist> getPlaylists()
-    {
-        return playlists;
-    }
     public boolean changeToPlaylist(String name)
     {
+        ArrayList<Playlist> playlists =  dataModel.getPlaylists();
         int p = 0;
         for(Playlist playlist : playlists)
         {
             if(playlist.getPlaylistName().equals(name))
             {
-                playlist_id = p;
+                dataModel.setOnPlaylist(p);
                 return true;
             }
             p ++;
@@ -95,14 +91,14 @@ public class Model
     public void playMusic()
             throws FileNotFoundException, JavaLayerException, IOException
     {
-        if( playlist_id == -1 ||
-            playlists.get(playlist_id).getNames().isEmpty() ||
+        if( dataModel.getOnPlaylist() == -1 ||
+            dataModel.getCurrentPlaylist().getNames().isEmpty() ||
             isPlaying)
         {
             throw new IOException();
         }
         
-        fis = new FileInputStream(playlists.get(playlist_id).getCurrentPath());
+        fis = new FileInputStream(dataModel.getCurrentPlaylist().getCurrentPath());
         bis = new BufferedInputStream(fis);
 
         player = new Player(bis);
@@ -171,7 +167,7 @@ public class Model
         
         try
         {
-            fis = new FileInputStream(playlists.get(playlist_id).getCurrentPath());
+            fis = new FileInputStream(dataModel.getCurrentPlaylist().getCurrentPath());
             bis = new BufferedInputStream(fis);
             
             player = new Player(bis);
@@ -211,7 +207,7 @@ public class Model
     public void nextMusic() throws JavaLayerException, IOException
     {
         stopMusic();
-        playlists.get(playlist_id).next();
+        dataModel.getCurrentPlaylist().next();
         if(isPlaying == true)
         {
             playMusic();
@@ -220,7 +216,7 @@ public class Model
     public void previousMusic() throws JavaLayerException, IOException
     {
         stopMusic();
-        playlists.get(playlist_id).previous();
+        dataModel.getCurrentPlaylist().previous();
         if(isPlaying == true)
         {
             playMusic();
@@ -234,33 +230,6 @@ public class Model
     public boolean isPlaying()
     {
         return isPlaying;
-    }
-    @SuppressWarnings("unchecked")
-    public void loadPlaylist() throws FileNotFoundException, IOException,
-            ClassNotFoundException
-    {
-        File file_playlist = new File(
-                System.getProperty("user.home") + "/.dimusique.playlist");
-        FileInputStream fin;
-        fin = new FileInputStream(file_playlist);
-        try (ObjectInputStream ois = new ObjectInputStream(fin))
-        {
-            playlist_id = 0;
-            playlists = (List<Playlist>) ois.readObject();
-            fin.close();
-        }
-    }
-    public void savePlaylist() throws FileNotFoundException, IOException
-    {
-        //
-        File file_playlist = new File(
-                System.getProperty("user.home") + "/.dimusique.playlist");
-        FileOutputStream fout = new FileOutputStream(file_playlist);
-        try (ObjectOutputStream oos = new ObjectOutputStream(fout))
-        {
-            oos.writeObject(playlists);
-            oos.close();
-        }
     }
     public void finish()
     {
