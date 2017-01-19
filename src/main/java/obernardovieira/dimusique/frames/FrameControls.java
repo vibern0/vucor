@@ -16,7 +16,7 @@ public class FrameControls extends javax.swing.JPanel {
      */
     public FrameControls() {
         initComponents();
-        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png" , 256, 256, 100, 100));
+        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png" , 256, 256, 95, 95));
     }
 
     /**
@@ -39,6 +39,9 @@ public class FrameControls extends javax.swing.JPanel {
         button_pause = new javax.swing.JButton();
         button_play = new javax.swing.JButton();
         label_music_name = new javax.swing.JLabel();
+        label_artist_name = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(0, 102, 204));
 
         panel_disc_image.setBackground(new java.awt.Color(204, 255, 204));
         panel_disc_image.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -51,7 +54,7 @@ public class FrameControls extends javax.swing.JPanel {
         );
         panel_disc_imageLayout.setVerticalGroup(
             panel_disc_imageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 96, Short.MAX_VALUE)
         );
 
         lb_current_time.setText("4:51");
@@ -61,19 +64,26 @@ public class FrameControls extends javax.swing.JPanel {
         lb_total_time.setText("6:23");
 
         button_previous.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/137__previous.png"))); // NOI18N
+        button_previous.setToolTipText("Previous");
 
         button_next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/136__next.png"))); // NOI18N
+        button_next.setToolTipText("Next");
 
         button_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/133__stop.png"))); // NOI18N
+        button_stop.setToolTipText("Stop");
 
         button_pause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/132__pause.png"))); // NOI18N
+        button_pause.setToolTipText("Pause");
 
         button_play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/131__play.png"))); // NOI18N
+        button_play.setToolTipText("Play");
         button_play.setBorder(null);
         button_play.setBorderPainted(false);
         button_play.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         label_music_name.setText("Music name");
+
+        label_artist_name.setText("Artist name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,6 +102,9 @@ public class FrameControls extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_play, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(label_artist_name, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addGap(303, 303, 303))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +115,10 @@ public class FrameControls extends javax.swing.JPanel {
                     .addComponent(button_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_next, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_previous, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_music_name))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(label_music_name)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label_artist_name)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -135,8 +151,8 @@ public class FrameControls extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panel_disc_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addComponent(panel_disc_image, 96, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -148,6 +164,7 @@ public class FrameControls extends javax.swing.JPanel {
     private javax.swing.JButton button_previous;
     private javax.swing.JButton button_stop;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel label_artist_name;
     private javax.swing.JLabel label_music_name;
     private javax.swing.JLabel lb_current_time;
     private javax.swing.JLabel lb_total_time;
