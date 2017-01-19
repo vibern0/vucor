@@ -5,6 +5,8 @@
  */
 package obernardovieira.dimusique.frames;
 
+import obernardovieira.dimusique.core.Playlist;
+
 /**
  *
  * @author user
@@ -13,9 +15,13 @@ public class FramePlaylistsElement extends javax.swing.JPanel {
 
     /**
      * Creates new form FramePlaylistsElement
+     * @param playlist
      */
-    public FramePlaylistsElement() {
+    public FramePlaylistsElement(Playlist playlist) {
         initComponents();
+        label_playlist_title.setText(playlist.getPlaylistName());
+        label_playlist_title.invalidate();
+        label_playlist_title.repaint();
     }
 
     /**

@@ -23,7 +23,7 @@ public class MainWindows extends javax.swing.JFrame {
         panel_left_upper.invalidate();
         panel_left_upper.repaint();
         
-        panel_right_upper.add(new FramePlaying());
+        panel_right_upper.add(new FramePlaying(this));
         panel_right_upper.invalidate();
         panel_right_upper.repaint();
         
@@ -37,12 +37,17 @@ public class MainWindows extends javax.swing.JFrame {
         if(_case.equals(Basic.framePlaylists))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FramePlaylists());
+            panel_right_upper.add(new FramePlaylists(this));
         }
         else if(_case.equals(Basic.framePlaying))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FramePlaying());
+            panel_right_upper.add(new FramePlaying(this));
+        }
+        else if(_case.equals(Basic.frameNewPlaylist))
+        {
+            panel_right_upper.removeAll();
+            panel_right_upper.add(new FrameNewPlaylist());
         }
         panel_right_upper.invalidate();
         panel_right_upper.repaint();

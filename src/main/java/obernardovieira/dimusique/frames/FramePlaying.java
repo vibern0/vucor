@@ -5,6 +5,9 @@
  */
 package obernardovieira.dimusique.frames;
 
+import javax.swing.JFrame;
+import obernardovieira.dimusique.MainWindows;
+
 /**
  *
  * @author user
@@ -14,14 +17,14 @@ public class FramePlaying extends javax.swing.JPanel {
     /**
      * Creates new form FramePlaylist
      */
-    public FramePlaying() {
+    private final MainWindows window;
+    public FramePlaying(JFrame window)
+    {
         initComponents();
+        this.window = (MainWindows)window;
         panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png", 256, 256, 178, 178));
     
-        panel_music_list.add(new FrameMusicListElement());
-        panel_music_list.add(new FrameMusicListElement());
-        panel_music_list.add(new FrameMusicListElement());
-        panel_music_list.add(new FrameMusicListElement());
+        panel_music_list.add(new FrameNoData(window));
         panel_music_list.invalidate();
         panel_music_list.repaint();
     }

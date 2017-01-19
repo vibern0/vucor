@@ -19,7 +19,8 @@ public class FrameOptions extends javax.swing.JPanel {
      * Creates new form FrameOptions
      */
     private final MainWindows window;
-    public FrameOptions(JFrame window) {
+    public FrameOptions(JFrame window)
+    {
         initComponents();
         this.window = (MainWindows)window;
     }

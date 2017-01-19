@@ -5,14 +5,22 @@
  */
 package obernardovieira.dimusique.core;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author user
  */
-public class Basic {
+public class Data
+{ 
+    public static ArrayList<Playlist> loadData()
+    {
+        //
+        return null;
+    }
     
-    public static final Integer     framePlaying        = 1;
-    public static final Integer     framePlaylists      = 2;
-    public static final Integer     frameNewPlaylist    = 3;
-    
+    public static void saveData(ArrayList<Playlist> playlista)
+    {
+        //
+    }
 }
