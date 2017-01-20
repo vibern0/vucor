@@ -5,6 +5,8 @@
  */
 package obernardovieira.dimusique.frames;
 
+import obernardovieira.dimusique.frames.elements.FrameNewPLElement;
+
 /**
  *
  * @author user
@@ -16,6 +18,9 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
      */
     public FrameNewPlaylist() {
         initComponents();
+        panel_musics.add(new FrameNewPLElement());
+        panel_musics.invalidate();
+        panel_musics.repaint();
     }
 
     /**
@@ -27,41 +32,71 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panel_title = new javax.swing.JPanel();
+        label_playlist_title = new javax.swing.JLabel();
+        panel_content = new javax.swing.JPanel();
+        scrollpanel_musics = new javax.swing.JScrollPane();
+        panel_musics = new javax.swing.JPanel();
+        panel_buttons = new javax.swing.JPanel();
+        button_cancel = new javax.swing.JButton();
+        button_create = new javax.swing.JButton();
+        button_add_music = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        panel_title.setPreferredSize(new java.awt.Dimension(530, 40));
+        panel_title.setLayout(new javax.swing.BoxLayout(panel_title, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
-        );
+        label_playlist_title.setFont(new java.awt.Font("Yu Gothic Light", 0, 22)); // NOI18N
+        label_playlist_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_playlist_title.setText("You new playlist");
+        label_playlist_title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        label_playlist_title.setMaximumSize(new java.awt.Dimension(530, 40));
+        label_playlist_title.setMinimumSize(new java.awt.Dimension(530, 40));
+        label_playlist_title.setPreferredSize(new java.awt.Dimension(530, 40));
+        panel_title.add(label_playlist_title);
+
+        add(panel_title);
+
+        panel_content.setMaximumSize(new java.awt.Dimension(530, 290));
+        panel_content.setMinimumSize(new java.awt.Dimension(530, 290));
+        panel_content.setPreferredSize(new java.awt.Dimension(530, 290));
+        panel_content.setLayout(new javax.swing.BoxLayout(panel_content, javax.swing.BoxLayout.Y_AXIS));
+
+        panel_musics.setLayout(new javax.swing.BoxLayout(panel_musics, javax.swing.BoxLayout.Y_AXIS));
+        scrollpanel_musics.setViewportView(panel_musics);
+
+        panel_content.add(scrollpanel_musics);
+
+        panel_buttons.setMaximumSize(new java.awt.Dimension(220, 40));
+        panel_buttons.setMinimumSize(new java.awt.Dimension(220, 40));
+        panel_buttons.setPreferredSize(new java.awt.Dimension(220, 40));
+        panel_buttons.setLayout(new javax.swing.BoxLayout(panel_buttons, javax.swing.BoxLayout.X_AXIS));
+
+        button_cancel.setText("Cancel");
+        panel_buttons.add(button_cancel);
+
+        button_create.setText("Create");
+        panel_buttons.add(button_create);
+
+        button_add_music.setText("Add Music");
+        panel_buttons.add(button_add_music);
+
+        panel_content.add(panel_buttons);
+
+        add(panel_content);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton button_add_music;
+    private javax.swing.JButton button_cancel;
+    private javax.swing.JButton button_create;
+    private javax.swing.JLabel label_playlist_title;
+    private javax.swing.JPanel panel_buttons;
+    private javax.swing.JPanel panel_content;
+    private javax.swing.JPanel panel_musics;
+    private javax.swing.JPanel panel_title;
+    private javax.swing.JScrollPane scrollpanel_musics;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,6 +36,27 @@ public class PicPanel extends JPanel
         {
             System.out.println(ioe.toString());
             System.out.println("Could not read in the pic");
+        }
+    }
+    public PicPanel(String fname, int image_width, int image_height,
+            int jpanel_width, int jpanel_height, Color background){
+        
+        setBounds(0,0,image_width,image_height);
+        jw = jpanel_width;
+        jh = jpanel_height;
+        
+        try
+        {
+            image = ImageIO.read(new File(fname));
+        }
+        catch (IOException ioe)
+        {
+            System.out.println(ioe.toString());
+            System.out.println("Could not read in the pic");
+        }
+        if(background != null)
+        {
+            setBackground(background);
         }
     }
     @Override
