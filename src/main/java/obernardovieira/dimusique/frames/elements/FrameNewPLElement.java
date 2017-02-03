@@ -5,6 +5,8 @@
  */
 package obernardovieira.dimusique.frames.elements;
 
+import obernardovieira.dimusique.frames.FrameNewPlaylist;
+
 /**
  *
  * @author user
@@ -13,9 +15,16 @@ public class FrameNewPLElement extends javax.swing.JPanel {
 
     /**
      * Creates new form FrameNewPLElement
+     * @param music_name
      */
-    public FrameNewPLElement() {
+    FrameNewPlaylist parentPanel;
+    
+    public FrameNewPLElement(javax.swing.JPanel panel, String music_name) {
         initComponents();
+        parentPanel = (FrameNewPlaylist)panel;
+        label_music_name.setText(music_name);
+        label_music_name.invalidate();
+        label_music_name.repaint();
     }
 
     /**
@@ -38,8 +47,18 @@ public class FrameNewPLElement extends javax.swing.JPanel {
         add(label_music_name);
 
         button_delete.setText("Delete");
+        button_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_deleteActionPerformed(evt);
+            }
+        });
         add(button_delete);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_deleteActionPerformed
+        // TODO add your handling code here:
+        parentPanel.removeFromList(this);
+    }//GEN-LAST:event_button_deleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

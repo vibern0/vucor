@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 /**
  *
@@ -54,5 +56,39 @@ public class DataFiles
             oos.writeObject(data);
             oos.close();
         }
+    }
+    
+    public static String selectMusicFromDisk()
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File("."));
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileFilter()
+        {
+            @Override
+            public boolean accept(File f)
+            {
+                return f.getName().toLowerCase().endsWith(".mp3")
+                    || f.isDirectory();
+            }
+
+            @Override
+            public String getDescription()
+            {
+                return "MP3 files";
+            }
+        });
+
+        int r = chooser.showOpenDialog(new JFrame());
+        if (r == JFileChooser.APPROVE_OPTION)
+        {
+            String name = chooser.getSelectedFile().getAbsolutePath();
+            String format = name.substring(name.lastIndexOf("."));
+            if(format.equals(".mp3") || format.equals(".MP3"))
+            {
+                return name;
+            }
+        }
+        return null;
     }
 }

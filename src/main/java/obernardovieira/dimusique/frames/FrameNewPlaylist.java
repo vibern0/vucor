@@ -5,6 +5,20 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.core.data.DataFiles;
 import obernardovieira.dimusique.frames.elements.FrameNewPLElement;
 
 /**
@@ -13,14 +27,21 @@ import obernardovieira.dimusique.frames.elements.FrameNewPLElement;
  */
 public class FrameNewPlaylist extends javax.swing.JPanel {
 
+    private final HashMap<FrameNewPLElement, String> new_playlist;
+    private String playlist_name;
     /**
      * Creates new form FrameNewPlaylist
      */
     public FrameNewPlaylist() {
+        BufferedImage master;
         initComponents();
-        panel_musics.add(new FrameNewPLElement());
-        panel_musics.invalidate();
-        panel_musics.repaint();
+        try {
+            master = ImageIO.read(new File("src/main/resources/images/edit-icon.png"));
+            Image scaled = master.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+            button_edit.setIcon(new ImageIcon(scaled));
+        } catch (IOException ex) { }
+        playlist_name = label_playlist_title.getText();
+        new_playlist = new HashMap<>();
     }
 
     /**
@@ -34,11 +55,12 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
 
         panel_title = new javax.swing.JPanel();
         label_playlist_title = new javax.swing.JLabel();
+        panel_edit = new javax.swing.JPanel();
+        button_edit = new javax.swing.JButton();
         panel_content = new javax.swing.JPanel();
         scrollpanel_musics = new javax.swing.JScrollPane();
         panel_musics = new javax.swing.JPanel();
         panel_buttons = new javax.swing.JPanel();
-        button_cancel = new javax.swing.JButton();
         button_create = new javax.swing.JButton();
         button_add_music = new javax.swing.JButton();
 
@@ -51,10 +73,42 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         label_playlist_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_playlist_title.setText("You new playlist");
         label_playlist_title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        label_playlist_title.setMaximumSize(new java.awt.Dimension(530, 40));
-        label_playlist_title.setMinimumSize(new java.awt.Dimension(530, 40));
-        label_playlist_title.setPreferredSize(new java.awt.Dimension(530, 40));
+        label_playlist_title.setMaximumSize(new java.awt.Dimension(470, 40));
+        label_playlist_title.setMinimumSize(new java.awt.Dimension(470, 40));
+        label_playlist_title.setPreferredSize(new java.awt.Dimension(470, 40));
         panel_title.add(label_playlist_title);
+
+        panel_edit.setMaximumSize(new java.awt.Dimension(40, 40));
+        panel_edit.setMinimumSize(new java.awt.Dimension(40, 40));
+        panel_edit.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        button_edit.setToolTipText("");
+        button_edit.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        button_edit.setMaximumSize(new java.awt.Dimension(40, 40));
+        button_edit.setMinimumSize(new java.awt.Dimension(40, 40));
+        button_edit.setPreferredSize(new java.awt.Dimension(40, 40));
+        button_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_editActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_editLayout = new javax.swing.GroupLayout(panel_edit);
+        panel_edit.setLayout(panel_editLayout);
+        panel_editLayout.setHorizontalGroup(
+            panel_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_editLayout.createSequentialGroup()
+                .addComponent(button_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panel_editLayout.setVerticalGroup(
+            panel_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_editLayout.createSequentialGroup()
+                .addComponent(button_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panel_title.add(panel_edit);
 
         add(panel_title);
 
@@ -63,23 +117,32 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         panel_content.setPreferredSize(new java.awt.Dimension(530, 290));
         panel_content.setLayout(new javax.swing.BoxLayout(panel_content, javax.swing.BoxLayout.Y_AXIS));
 
+        scrollpanel_musics.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         panel_musics.setLayout(new javax.swing.BoxLayout(panel_musics, javax.swing.BoxLayout.Y_AXIS));
         scrollpanel_musics.setViewportView(panel_musics);
 
         panel_content.add(scrollpanel_musics);
 
-        panel_buttons.setMaximumSize(new java.awt.Dimension(220, 40));
-        panel_buttons.setMinimumSize(new java.awt.Dimension(220, 40));
-        panel_buttons.setPreferredSize(new java.awt.Dimension(220, 40));
+        panel_buttons.setMaximumSize(new java.awt.Dimension(150, 40));
+        panel_buttons.setMinimumSize(new java.awt.Dimension(150, 40));
+        panel_buttons.setPreferredSize(new java.awt.Dimension(150, 40));
         panel_buttons.setLayout(new javax.swing.BoxLayout(panel_buttons, javax.swing.BoxLayout.X_AXIS));
 
-        button_cancel.setText("Cancel");
-        panel_buttons.add(button_cancel);
-
         button_create.setText("Create");
+        button_create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_createActionPerformed(evt);
+            }
+        });
         panel_buttons.add(button_create);
 
         button_add_music.setText("Add Music");
+        button_add_music.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_add_musicActionPerformed(evt);
+            }
+        });
         panel_buttons.add(button_add_music);
 
         panel_content.add(panel_buttons);
@@ -87,14 +150,66 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         add(panel_content);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void button_add_musicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_musicActionPerformed
+        String complete_path = DataFiles.selectMusicFromDisk();
+        if(complete_path != null)
+        {
+            Path path = Paths.get(complete_path);
+            String music_name = path.getFileName().toString();
+            FrameNewPLElement frame = new FrameNewPLElement(this, music_name);
+            panel_musics.add(frame);
+            panel_musics.invalidate();
+            panel_musics.repaint();
+            panel_musics.setVisible(false);
+            panel_musics.setVisible(true);
+            new_playlist.put(frame, complete_path);
+        }
+    }//GEN-LAST:event_button_add_musicActionPerformed
+
+    private void button_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_createActionPerformed
+        Playlist playlist = new Playlist(playlist_name);
+        new_playlist.forEach((k,v) -> playlist.add(v));
+        
+    }//GEN-LAST:event_button_createActionPerformed
+
+    private void button_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_editActionPerformed
+        String s = (String)JOptionPane.showInputDialog(
+                    this,
+                    "Insert a new name for the playlist:\n",
+                    "Set playlist name",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    playlist_name);
+        
+        if (s == null || s.length()  < 1)
+        {
+            return;
+        }
+        playlist_name = s;
+        label_playlist_title.setText(playlist_name);
+        label_playlist_title.invalidate();
+        label_playlist_title.repaint();
+    }//GEN-LAST:event_button_editActionPerformed
+    
+    public void removeFromList(javax.swing.JPanel panel)
+    {
+        new_playlist.remove((FrameNewPLElement)panel);
+        panel_musics.remove((FrameNewPLElement)panel);
+        panel_musics.invalidate();
+        panel_musics.repaint();
+        panel_musics.setVisible(false);
+        panel_musics.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_add_music;
-    private javax.swing.JButton button_cancel;
     private javax.swing.JButton button_create;
+    private javax.swing.JButton button_edit;
     private javax.swing.JLabel label_playlist_title;
     private javax.swing.JPanel panel_buttons;
     private javax.swing.JPanel panel_content;
+    private javax.swing.JPanel panel_edit;
     private javax.swing.JPanel panel_musics;
     private javax.swing.JPanel panel_title;
     private javax.swing.JScrollPane scrollpanel_musics;

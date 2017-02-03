@@ -29,10 +29,6 @@ public class Playlist implements Serializable
     }
     public boolean add(String path)
     {
-        if(music_path_list.contains(path))
-        {
-            return false;
-        }
         return music_path_list.add(path);
     }
     public boolean remove(String path_)
