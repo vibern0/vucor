@@ -5,7 +5,12 @@
  */
 package obernardovieira.dimusique.frames.elements;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import obernardovieira.dimusique.MainWindows;
+import obernardovieira.dimusique.core.Basic;
 import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.frames.FrameControls;
 
 /**
  *
@@ -16,12 +21,29 @@ public class FramePlaylistsElement extends javax.swing.JPanel {
     /**
      * Creates new form FramePlaylistsElement
      * @param playlist
+     * @param window
+     * @param controls
      */
-    public FramePlaylistsElement(Playlist playlist) {
+    private final MainWindows window;
+    private final FrameControls controlsPanel;
+    private Playlist playlist;
+    
+    public FramePlaylistsElement(Playlist playlist,
+            JFrame window, javax.swing.JPanel controls)
+    {
         initComponents();
+        this.playlist = playlist;
+        //
         label_playlist_title.setText(playlist.getPlaylistName());
         label_playlist_title.invalidate();
         label_playlist_title.repaint();
+        //
+        label_total_songs.setText(playlist.getNames().size() + " songs");
+        label_total_songs.invalidate();
+        label_total_songs.repaint();
+        //
+        this.window = (MainWindows) window;
+        this.controlsPanel = (FrameControls) controls;
     }
 
     /**
@@ -39,8 +61,14 @@ public class FramePlaylistsElement extends javax.swing.JPanel {
         label_total_songs = new javax.swing.JLabel();
         label_total_time = new javax.swing.JLabel();
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
+        panel_above.setBackground(new java.awt.Color(51, 102, 0));
         panel_above.setMaximumSize(new java.awt.Dimension(530, 33));
         panel_above.setMinimumSize(new java.awt.Dimension(530, 33));
         panel_above.setPreferredSize(new java.awt.Dimension(530, 33));
@@ -56,6 +84,7 @@ public class FramePlaylistsElement extends javax.swing.JPanel {
 
         add(panel_above);
 
+        panel_below.setBackground(new java.awt.Color(51, 102, 0));
         panel_below.setMaximumSize(new java.awt.Dimension(530, 32));
         panel_below.setMinimumSize(new java.awt.Dimension(530, 32));
         panel_below.setPreferredSize(new java.awt.Dimension(530, 32));
@@ -77,6 +106,15 @@ public class FramePlaylistsElement extends javax.swing.JPanel {
 
         add(panel_below);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        /*JOptionPane.showMessageDialog(this,
+            "Eggs are not supposed to be green.",
+            "Inane error",
+            JOptionPane.ERROR_MESSAGE);*/
+        window.setPreviewPlaylist(playlist);
+        window.setViewer(Basic.framePlaying);
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

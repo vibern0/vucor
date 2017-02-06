@@ -53,6 +53,8 @@ public class FrameControls extends javax.swing.JPanel {
         }
     }
     
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,11 +93,9 @@ public class FrameControls extends javax.swing.JPanel {
             .addGap(0, 96, Short.MAX_VALUE)
         );
 
-        lb_current_time.setText("4:51");
+        lb_current_time.setText("0:00");
 
-        pb_music.setValue(37);
-
-        lb_total_time.setText("6:23");
+        lb_total_time.setText("0:00");
 
         panel_controls.setBackground(getBackground());
 
@@ -142,9 +142,9 @@ public class FrameControls extends javax.swing.JPanel {
             }
         });
 
-        label_music_name.setText("Music name");
+        label_music_name.setText(" ");
 
-        label_artist_name.setText("Artist name");
+        label_artist_name.setText(" ");
 
         javax.swing.GroupLayout panel_controlsLayout = new javax.swing.GroupLayout(panel_controls);
         panel_controls.setLayout(panel_controlsLayout);

@@ -24,12 +24,12 @@ public class FramePlaylists extends javax.swing.JPanel {
 
     /**
      * Creates new form FramePlaylists
+     * @param window
+     * @param controls
      */
-    private final MainWindows window;
-    public FramePlaylists(JFrame window)
+    public FramePlaylists(JFrame window, javax.swing.JPanel controls)
     {
         initComponents();
-        this.window = (MainWindows)window;
         DataModel dataModel;
         ArrayList<Playlist> playlists = new ArrayList<>();
         try
@@ -49,7 +49,13 @@ public class FramePlaylists extends javax.swing.JPanel {
         else
         {
             playlists.forEach((element) -> {
-                panel_playlists.add(new FramePlaylistsElement(element));
+                panel_playlists.add(
+                        new FramePlaylistsElement(
+                                element,
+                                (MainWindows)window,
+                                (FrameControls)controls
+                        )
+                );
             });
         }
         panel_playlists.invalidate();

@@ -84,17 +84,14 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lb_current_time">
       <Properties>
-        <Property name="text" type="java.lang.String" value="4:51"/>
+        <Property name="text" type="java.lang.String" value="0:00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="pb_music">
-      <Properties>
-        <Property name="value" type="int" value="37"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lb_total_time">
       <Properties>
-        <Property name="text" type="java.lang.String" value="6:23"/>
+        <Property name="text" type="java.lang.String" value="0:00"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="panel_controls">
@@ -212,12 +209,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="label_music_name">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Music name"/>
+            <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="label_artist_name">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Artist name"/>
+            <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
         </Component>
       </SubComponents>
