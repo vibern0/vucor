@@ -27,6 +27,7 @@ public class DataFiles
     {
         File file_playlist = new File(
                 System.getProperty("user.home") + "/.dimusique.playlist");
+        System.out.println(file_playlist.getPath());
         if(file_playlist.exists())
         {
             DataModel dataModel;
@@ -50,6 +51,7 @@ public class DataFiles
     {
         File file_playlist = new File(
                 System.getProperty("user.home") + "/.dimusique.playlist");
+        System.out.println(file_playlist.getPath());
         FileOutputStream fout = new FileOutputStream(file_playlist);
         try (ObjectOutputStream oos = new ObjectOutputStream(fout))
         {

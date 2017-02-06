@@ -16,7 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import obernardovieira.dimusique.MainWindows;
+import obernardovieira.dimusique.core.Basic;
 import obernardovieira.dimusique.core.Playlist;
 import obernardovieira.dimusique.core.data.DataFiles;
 import obernardovieira.dimusique.frames.elements.FrameNewPLElement;
@@ -29,19 +32,28 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
 
     private final HashMap<FrameNewPLElement, String> new_playlist;
     private String playlist_name;
+    private final FrameControls frameControls;
+    private final MainWindows mainWindow;
     /**
      * Creates new form FrameNewPlaylist
+     * @param window
+     * @param mainWindow
      */
-    public FrameNewPlaylist() {
+    public FrameNewPlaylist(javax.swing.JPanel window, JFrame mainWindow) {
         BufferedImage master;
         initComponents();
-        try {
+        try
+        {
             master = ImageIO.read(new File("src/main/resources/images/edit-icon.png"));
             Image scaled = master.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
             button_edit.setIcon(new ImageIcon(scaled));
-        } catch (IOException ex) { }
+        }
+        catch (IOException ex)
+        { }
         playlist_name = label_playlist_title.getText();
         new_playlist = new HashMap<>();
+        this.frameControls = (FrameControls)window;
+        this.mainWindow = (MainWindows)mainWindow;
     }
 
     /**
@@ -170,6 +182,8 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         Playlist playlist = new Playlist(playlist_name);
         new_playlist.forEach((k,v) -> playlist.add(v));
         
+        frameControls.addPlaylist(playlist);
+        mainWindow.setViewer(Basic.framePlaylists);
     }//GEN-LAST:event_button_createActionPerformed
 
     private void button_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_editActionPerformed

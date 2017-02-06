@@ -5,12 +5,16 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.io.IOException;
 import obernardovieira.dimusique.frames.elements.FramePlaylistsElement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import obernardovieira.dimusique.MainWindows;
 import obernardovieira.dimusique.core.data.DataFiles;
 import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.core.data.DataModel;
 
 /**
  *
@@ -26,7 +30,17 @@ public class FramePlaylists extends javax.swing.JPanel {
     {
         initComponents();
         this.window = (MainWindows)window;
+        DataModel dataModel;
         ArrayList<Playlist> playlists = new ArrayList<>();
+        try
+        {
+            dataModel = DataFiles.loadData();
+            playlists = dataModel.getPlaylists();
+        }
+        catch (IOException | ClassNotFoundException ex)
+        {
+            Logger.getLogger(FramePlaylists.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if(playlists.isEmpty())
         {

@@ -17,8 +17,13 @@ public class MainWindows extends javax.swing.JFrame {
     /**
      * Creates new form MainWindows
      */
+    private final FrameControls frame_controls;
+    
     public MainWindows() {
         initComponents();
+        
+        frame_controls = new FrameControls();;
+        
         panel_left_upper.add(new FrameOptions(this));
         panel_left_upper.invalidate();
         panel_left_upper.repaint();
@@ -27,7 +32,7 @@ public class MainWindows extends javax.swing.JFrame {
         panel_right_upper.invalidate();
         panel_right_upper.repaint();
         
-        pannel_lower.add(new FrameControls());
+        pannel_lower.add(frame_controls);
         pannel_lower.invalidate();
         pannel_lower.repaint();
     }
@@ -47,7 +52,7 @@ public class MainWindows extends javax.swing.JFrame {
         else if(_case.equals(Basic.frameNewPlaylist))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FrameNewPlaylist());
+            panel_right_upper.add(new FrameNewPlaylist(frame_controls, this));
         }
         panel_right_upper.invalidate();
         panel_right_upper.repaint();

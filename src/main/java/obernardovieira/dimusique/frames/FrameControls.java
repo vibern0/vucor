@@ -5,6 +5,14 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javazoom.jl.decoder.JavaLayerException;
+import obernardovieira.dimusique.core.Model;
+import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.core.data.DataFiles;
+
 /**
  *
  * @author user
@@ -14,12 +22,37 @@ public class FrameControls extends javax.swing.JPanel {
     /**
      * Creates new form FramePlaying
      */
-    public FrameControls() {
+    private Model model;
+    
+    public FrameControls()
+    {
         initComponents();
         panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png",
                 256, 256, 95, 95, panel_controls.getBackground()));
+        
+        try
+        {
+            model = new Model();
+        }
+        catch (IOException | ClassNotFoundException ex)
+        {
+            Logger.getLogger(FrameControls.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
+    
+    public void addPlaylist(Playlist playlist)
+    {
+        model.addNewPlaylist(playlist);
+        try
+        {
+            DataFiles.saveData(model.getDataModel());
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(FrameControls.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,21 +101,46 @@ public class FrameControls extends javax.swing.JPanel {
 
         button_previous.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/137__previous.png"))); // NOI18N
         button_previous.setToolTipText("Previous");
+        button_previous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_previousActionPerformed(evt);
+            }
+        });
 
         button_next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/136__next.png"))); // NOI18N
         button_next.setToolTipText("Next");
+        button_next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_nextActionPerformed(evt);
+            }
+        });
 
         button_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/133__stop.png"))); // NOI18N
         button_stop.setToolTipText("Stop");
+        button_stop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_stopActionPerformed(evt);
+            }
+        });
 
         button_pause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/132__pause.png"))); // NOI18N
         button_pause.setToolTipText("Pause");
+        button_pause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_pauseActionPerformed(evt);
+            }
+        });
 
         button_play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/131__play.png"))); // NOI18N
         button_play.setToolTipText("Play");
         button_play.setBorder(null);
         button_play.setBorderPainted(false);
         button_play.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        button_play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_playActionPerformed(evt);
+            }
+        });
 
         label_music_name.setText("Music name");
 
@@ -158,6 +216,50 @@ public class FrameControls extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_previousActionPerformed
+        try
+        {
+            model.previousMusic();
+            //update time
+            //name
+        }
+        catch (JavaLayerException | IOException ex)
+        { }
+    }//GEN-LAST:event_button_previousActionPerformed
+
+    private void button_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_nextActionPerformed
+        try
+        {
+            model.nextMusic();
+            //update time
+            //name
+        }
+        catch (JavaLayerException | IOException ex)
+        { }
+    }//GEN-LAST:event_button_nextActionPerformed
+
+    private void button_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_stopActionPerformed
+        model.stopMusic();
+        //stop schedule timer
+    }//GEN-LAST:event_button_stopActionPerformed
+
+    private void button_pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_pauseActionPerformed
+        model.pauseMusic();
+        //pause schedule timer
+    }//GEN-LAST:event_button_pauseActionPerformed
+
+    private void button_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_playActionPerformed
+        try
+        {
+            model.playMusic();
+            //start schedule timer
+        }
+        catch (JavaLayerException | IOException ex)
+        {
+            //janela erro, nao tem playlists ou nao selecionou playlist
+        }
+    }//GEN-LAST:event_button_playActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

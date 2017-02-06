@@ -155,6 +155,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Previous"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_previousActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="button_next">
           <Properties>
@@ -163,6 +166,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Next"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_nextActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="button_stop">
           <Properties>
@@ -171,6 +177,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Stop"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_stopActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="button_pause">
           <Properties>
@@ -179,6 +188,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Pause"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_pauseActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="button_play">
           <Properties>
@@ -194,6 +206,9 @@
               <Color id="Default Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_playActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="label_music_name">
           <Properties>
