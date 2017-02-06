@@ -7,26 +7,40 @@ package obernardovieira.dimusique.frames;
 
 import javax.swing.JFrame;
 import obernardovieira.dimusique.MainWindows;
+import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.frames.elements.FramePlaylistElement;
 
 /**
  *
  * @author user
  */
-public class FramePlaying extends javax.swing.JPanel {
+public class FramePlaylist extends javax.swing.JPanel {
 
     /**
      * Creates new form FramePlaylist
      */
     private final MainWindows window;
-    public FramePlaying(JFrame window)
+    private final Playlist previewPlaylist;
+    public FramePlaylist(JFrame window, Playlist preview)
     {
         initComponents();
         this.window = (MainWindows)window;
-        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png", 256, 256, 178, 178));
+        this.previewPlaylist = preview;
+        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png",
+                256, 256, 178, 178));
     
-        panel_music_list.add(new FrameNoData(window));
-        panel_music_list.invalidate();
-        panel_music_list.repaint();
+        if(previewPlaylist == null)
+        {
+            panel_music_list.add(new FrameNoData(window));
+            panel_music_list.invalidate();
+            panel_music_list.repaint();
+        }
+        else
+        {
+            previewPlaylist.getNames().forEach(
+                    (name) -> panel_music_list.add(new FramePlaylistElement(name))
+            );
+        }
     }
 
     /**
@@ -100,6 +114,8 @@ public class FramePlaying extends javax.swing.JPanel {
                         .addGap(0, 57, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        scrollpane_music_list.setBorder(null);
 
         panel_music_list.setLayout(new javax.swing.BoxLayout(panel_music_list, javax.swing.BoxLayout.Y_AXIS));
         scrollpane_music_list.setViewportView(panel_music_list);

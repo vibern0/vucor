@@ -5,6 +5,7 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import obernardovieira.dimusique.MainWindows;
 import obernardovieira.dimusique.core.Basic;
@@ -23,6 +24,11 @@ public class FrameOptions extends javax.swing.JPanel {
     {
         initComponents();
         this.window = (MainWindows)window;
+        
+        to_playlist.add(new PicPanel("src/main/resources/images/options/140__music.png",
+                167, 167, 60, 60, to_playlist.getParent().getBackground()));
+        to_playlists.add(new PicPanel("src/main/resources/images/options/032__list_item.png",
+                167, 167, 60, 60, to_playlists.getParent().getBackground()));
     }
 
     /**
@@ -34,61 +40,110 @@ public class FrameOptions extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bt_playlists = new javax.swing.JButton();
-        bt_playing = new javax.swing.JButton();
+        to_playlist = new javax.swing.JPanel();
+        to_playlists = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(60, 330));
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
-        bt_playlists.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/032__list_item.png"))); // NOI18N
-        bt_playlists.setToolTipText("Show playlists");
-        bt_playlists.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_playlistsActionPerformed(evt);
+        to_playlist.setToolTipText("Show current playlist");
+        to_playlist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                to_playlistMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                to_playlistMouseReleased(evt);
             }
         });
 
-        bt_playing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/options/140__music.png"))); // NOI18N
-        bt_playing.setToolTipText("Show current playlist");
-        bt_playing.setMaximumSize(new java.awt.Dimension(53, 53));
-        bt_playing.setMinimumSize(new java.awt.Dimension(53, 53));
-        bt_playing.setPreferredSize(new java.awt.Dimension(60, 60));
-        bt_playing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_playingActionPerformed(evt);
+        javax.swing.GroupLayout to_playlistLayout = new javax.swing.GroupLayout(to_playlist);
+        to_playlist.setLayout(to_playlistLayout);
+        to_playlistLayout.setHorizontalGroup(
+            to_playlistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        to_playlistLayout.setVerticalGroup(
+            to_playlistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        to_playlists.setToolTipText("Show playlists");
+        to_playlists.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                to_playlistsMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                to_playlistsMouseReleased(evt);
             }
         });
+
+        javax.swing.GroupLayout to_playlistsLayout = new javax.swing.GroupLayout(to_playlists);
+        to_playlists.setLayout(to_playlistsLayout);
+        to_playlistsLayout.setHorizontalGroup(
+            to_playlistsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        to_playlistsLayout.setVerticalGroup(
+            to_playlistsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bt_playlists, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(bt_playing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(to_playlist, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(to_playlists, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(bt_playlists, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(to_playlists, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_playing, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 203, Short.MAX_VALUE))
+                .addComponent(to_playlist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 204, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_playlistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_playlistsActionPerformed
-        window.setViewer(Basic.framePlaylists);
-    }//GEN-LAST:event_bt_playlistsActionPerformed
-
-    private void bt_playingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_playingActionPerformed
+    private void to_playlistMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_to_playlistMouseReleased
         window.setViewer(Basic.framePlaying);
-    }//GEN-LAST:event_bt_playingActionPerformed
+        to_playlist.removeAll();
+        to_playlist.add(new PicPanel("src/main/resources/images/options/140__music.png",
+                167, 167, 60, 60, to_playlist.getParent().getBackground()));
+        to_playlist.invalidate();
+        to_playlist.repaint();
+    }//GEN-LAST:event_to_playlistMouseReleased
+
+    private void to_playlistsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_to_playlistsMouseReleased
+        window.setViewer(Basic.framePlaylists);
+        to_playlists.removeAll();
+        to_playlists.add(new PicPanel("src/main/resources/images/options/032__list_item.png",
+                167, 167, 60, 60, to_playlist.getParent().getBackground()));
+        to_playlists.invalidate();
+        to_playlists.repaint();
+    }//GEN-LAST:event_to_playlistsMouseReleased
+
+    private void to_playlistsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_to_playlistsMousePressed
+        to_playlists.removeAll();
+        to_playlists.add(new PicPanel("src/main/resources/images/options/032__list_item.png",
+                167, 167, 60, 60, new Color(0,153,153)));
+        to_playlists.invalidate();
+        to_playlists.repaint();
+    }//GEN-LAST:event_to_playlistsMousePressed
+
+    private void to_playlistMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_to_playlistMousePressed
+        to_playlist.removeAll();
+        to_playlist.add(new PicPanel("src/main/resources/images/options/140__music.png",
+                167, 167, 60, 60, new Color(0,153,153)));
+        to_playlist.invalidate();
+        to_playlist.repaint();
+    }//GEN-LAST:event_to_playlistMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_playing;
-    private javax.swing.JButton bt_playlists;
+    private javax.swing.JPanel to_playlist;
+    private javax.swing.JPanel to_playlists;
     // End of variables declaration//GEN-END:variables
 }

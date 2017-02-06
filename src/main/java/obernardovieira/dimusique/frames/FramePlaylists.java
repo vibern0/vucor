@@ -5,12 +5,16 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.io.IOException;
 import obernardovieira.dimusique.frames.elements.FramePlaylistsElement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import obernardovieira.dimusique.MainWindows;
 import obernardovieira.dimusique.core.data.DataFiles;
 import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.core.data.DataModel;
 
 /**
  *
@@ -20,13 +24,23 @@ public class FramePlaylists extends javax.swing.JPanel {
 
     /**
      * Creates new form FramePlaylists
+     * @param window
+     * @param controls
      */
-    private final MainWindows window;
-    public FramePlaylists(JFrame window)
+    public FramePlaylists(JFrame window, javax.swing.JPanel controls)
     {
         initComponents();
-        this.window = (MainWindows)window;
+        DataModel dataModel;
         ArrayList<Playlist> playlists = new ArrayList<>();
+        try
+        {
+            dataModel = DataFiles.loadData();
+            playlists = dataModel.getPlaylists();
+        }
+        catch (IOException | ClassNotFoundException ex)
+        {
+            Logger.getLogger(FramePlaylists.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if(playlists.isEmpty())
         {
@@ -35,7 +49,13 @@ public class FramePlaylists extends javax.swing.JPanel {
         else
         {
             playlists.forEach((element) -> {
-                panel_playlists.add(new FramePlaylistsElement(element));
+                panel_playlists.add(
+                        new FramePlaylistsElement(
+                                element,
+                                (MainWindows)window,
+                                (FrameControls)controls
+                        )
+                );
             });
         }
         panel_playlists.invalidate();

@@ -47,4 +47,8 @@ public class DataModel implements Serializable
     {
         this.playlists = playlists;
     }
+    public void setPlaylist(int index, Playlist playlist)
+    {
+        this.playlists.set(index, playlist);
+    }
 }

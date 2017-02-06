@@ -5,6 +5,14 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javazoom.jl.decoder.JavaLayerException;
+import obernardovieira.dimusique.core.Model;
+import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.dimusique.core.data.DataFiles;
+
 /**
  *
  * @author user
@@ -14,11 +22,39 @@ public class FrameControls extends javax.swing.JPanel {
     /**
      * Creates new form FramePlaying
      */
-    public FrameControls() {
+    private Model model;
+    
+    public FrameControls()
+    {
         initComponents();
-        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png" , 256, 256, 95, 95));
+        panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png",
+                256, 256, 95, 95, panel_controls.getBackground()));
+        
+        try
+        {
+            model = new Model();
+        }
+        catch (IOException | ClassNotFoundException ex)
+        {
+            Logger.getLogger(FrameControls.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
+    
+    public void addPlaylist(Playlist playlist)
+    {
+        model.addNewPlaylist(playlist);
+        try
+        {
+            DataFiles.saveData(model.getDataModel());
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(FrameControls.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,7 +68,7 @@ public class FrameControls extends javax.swing.JPanel {
         lb_current_time = new javax.swing.JLabel();
         pb_music = new javax.swing.JProgressBar();
         lb_total_time = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panel_controls = new javax.swing.JPanel();
         button_previous = new javax.swing.JButton();
         button_next = new javax.swing.JButton();
         button_stop = new javax.swing.JButton();
@@ -57,39 +93,64 @@ public class FrameControls extends javax.swing.JPanel {
             .addGap(0, 96, Short.MAX_VALUE)
         );
 
-        lb_current_time.setText("4:51");
+        lb_current_time.setText("0:00");
 
-        pb_music.setValue(37);
+        lb_total_time.setText("0:00");
 
-        lb_total_time.setText("6:23");
+        panel_controls.setBackground(getBackground());
 
         button_previous.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/137__previous.png"))); // NOI18N
         button_previous.setToolTipText("Previous");
+        button_previous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_previousActionPerformed(evt);
+            }
+        });
 
         button_next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/136__next.png"))); // NOI18N
         button_next.setToolTipText("Next");
+        button_next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_nextActionPerformed(evt);
+            }
+        });
 
         button_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/133__stop.png"))); // NOI18N
         button_stop.setToolTipText("Stop");
+        button_stop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_stopActionPerformed(evt);
+            }
+        });
 
         button_pause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/132__pause.png"))); // NOI18N
         button_pause.setToolTipText("Pause");
+        button_pause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_pauseActionPerformed(evt);
+            }
+        });
 
         button_play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/controls/131__play.png"))); // NOI18N
         button_play.setToolTipText("Play");
         button_play.setBorder(null);
         button_play.setBorderPainted(false);
         button_play.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        button_play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_playActionPerformed(evt);
+            }
+        });
 
-        label_music_name.setText("Music name");
+        label_music_name.setText(" ");
 
-        label_artist_name.setText("Artist name");
+        label_artist_name.setText(" ");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_controlsLayout = new javax.swing.GroupLayout(panel_controls);
+        panel_controls.setLayout(panel_controlsLayout);
+        panel_controlsLayout.setHorizontalGroup(
+            panel_controlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_controlsLayout.createSequentialGroup()
                 .addComponent(label_music_name, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_previous, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -102,20 +163,20 @@ public class FrameControls extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_play, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(panel_controlsLayout.createSequentialGroup()
                 .addComponent(label_artist_name, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addGap(303, 303, 303))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panel_controlsLayout.setVerticalGroup(
+            panel_controlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_controlsLayout.createSequentialGroup()
+                .addGroup(panel_controlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button_play, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_pause, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_next, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_previous, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panel_controlsLayout.createSequentialGroup()
                         .addComponent(label_music_name)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(label_artist_name)))
@@ -137,7 +198,7 @@ public class FrameControls extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(lb_total_time)
                         .addContainerGap())
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(panel_controls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,13 +209,57 @@ public class FrameControls extends javax.swing.JPanel {
                     .addComponent(pb_music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lb_current_time))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel_controls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_disc_image, 96, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_previousActionPerformed
+        try
+        {
+            model.previousMusic();
+            //update time
+            //name
+        }
+        catch (JavaLayerException | IOException ex)
+        { }
+    }//GEN-LAST:event_button_previousActionPerformed
+
+    private void button_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_nextActionPerformed
+        try
+        {
+            model.nextMusic();
+            //update time
+            //name
+        }
+        catch (JavaLayerException | IOException ex)
+        { }
+    }//GEN-LAST:event_button_nextActionPerformed
+
+    private void button_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_stopActionPerformed
+        model.stopMusic();
+        //stop schedule timer
+    }//GEN-LAST:event_button_stopActionPerformed
+
+    private void button_pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_pauseActionPerformed
+        model.pauseMusic();
+        //pause schedule timer
+    }//GEN-LAST:event_button_pauseActionPerformed
+
+    private void button_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_playActionPerformed
+        try
+        {
+            model.playMusic();
+            //start schedule timer
+        }
+        catch (JavaLayerException | IOException ex)
+        {
+            //janela erro, nao tem playlists ou nao selecionou playlist
+        }
+    }//GEN-LAST:event_button_playActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -163,11 +268,11 @@ public class FrameControls extends javax.swing.JPanel {
     private javax.swing.JButton button_play;
     private javax.swing.JButton button_previous;
     private javax.swing.JButton button_stop;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel label_artist_name;
     private javax.swing.JLabel label_music_name;
     private javax.swing.JLabel lb_current_time;
     private javax.swing.JLabel lb_total_time;
+    private javax.swing.JPanel panel_controls;
     private javax.swing.JPanel panel_disc_image;
     private javax.swing.JProgressBar pb_music;
     // End of variables declaration//GEN-END:variables

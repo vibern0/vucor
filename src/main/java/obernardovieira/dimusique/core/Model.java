@@ -23,6 +23,15 @@ public class Model
     private long totalFrames;
     private boolean isPlaying;
     private Thread thread_music;
+    //
+    
+    //model como observer de datamodel e playlist
+    //framecontrols como observer de datamodel e playlist
+    
+    //model deve ter funcoes static
+    
+    //model deve guardar nome da musica e playlist, para que no caso de
+    //eliminar musica ou playlist, a reproducao pára
     
     public Model() throws IOException,
             FileNotFoundException, ClassNotFoundException
@@ -35,9 +44,17 @@ public class Model
         player = null;
         isPlaying = false;
     }
+    public DataModel getDataModel()
+    {
+        return dataModel;
+    }
     public boolean addNewPlaylist(String name)
     {
         return dataModel.addPlaylist(new Playlist(name));
+    }
+    public boolean addNewPlaylist(Playlist playlist)
+    {
+        return dataModel.addPlaylist(playlist);
     }
     public boolean removePlaylist(String name)
     {
@@ -92,11 +109,11 @@ public class Model
             throws FileNotFoundException, JavaLayerException, IOException
     {
         if( dataModel.getOnPlaylist() == -1 ||
-            dataModel.getCurrentPlaylist().getNames().isEmpty() ||
-            isPlaying)
+            dataModel.getCurrentPlaylist().getNames().isEmpty())
         {
             throw new IOException();
         }
+        if(isPlaying) return;
         
         fis = new FileInputStream(dataModel.getCurrentPlaylist().getCurrentPath());
         bis = new BufferedInputStream(fis);
@@ -206,6 +223,11 @@ public class Model
     }
     public void nextMusic() throws JavaLayerException, IOException
     {
+        if( dataModel.getOnPlaylist() == -1 ||
+            dataModel.getCurrentPlaylist().getNames().isEmpty())
+        {
+            return;
+        }
         stopMusic();
         dataModel.getCurrentPlaylist().next();
         if(isPlaying == true)
@@ -215,6 +237,11 @@ public class Model
     }
     public void previousMusic() throws JavaLayerException, IOException
     {
+        if( dataModel.getOnPlaylist() == -1 ||
+            dataModel.getCurrentPlaylist().getNames().isEmpty())
+        {
+            return;
+        }
         stopMusic();
         dataModel.getCurrentPlaylist().previous();
         if(isPlaying == true)

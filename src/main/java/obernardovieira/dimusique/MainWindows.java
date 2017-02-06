@@ -6,6 +6,7 @@
 package obernardovieira.dimusique;
 
 import obernardovieira.dimusique.core.Basic;
+import obernardovieira.dimusique.core.Playlist;
 import obernardovieira.dimusique.frames.*;
 
 /**
@@ -17,19 +18,32 @@ public class MainWindows extends javax.swing.JFrame {
     /**
      * Creates new form MainWindows
      */
+    private final FrameControls frame_controls;
+    private Playlist previewPlaylist;
+    
     public MainWindows() {
         initComponents();
+        
+        frame_controls = new FrameControls();
+        
         panel_left_upper.add(new FrameOptions(this));
         panel_left_upper.invalidate();
         panel_left_upper.repaint();
         
-        panel_right_upper.add(new FramePlaying(this));
+        panel_right_upper.add(new FramePlaylists(this, frame_controls));
         panel_right_upper.invalidate();
         panel_right_upper.repaint();
         
-        pannel_lower.add(new FrameControls());
+        pannel_lower.add(frame_controls);
         pannel_lower.invalidate();
         pannel_lower.repaint();
+        
+        this.previewPlaylist = null;
+    }
+    
+    public void setPreviewPlaylist(Playlist preview)
+    {
+        previewPlaylist = preview;
     }
     
     public void setViewer(Integer _case)
@@ -37,17 +51,17 @@ public class MainWindows extends javax.swing.JFrame {
         if(_case.equals(Basic.framePlaylists))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FramePlaylists(this));
+            panel_right_upper.add(new FramePlaylists(this, frame_controls));
         }
         else if(_case.equals(Basic.framePlaying))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FramePlaying(this));
+            panel_right_upper.add(new FramePlaylist(this, previewPlaylist));
         }
         else if(_case.equals(Basic.frameNewPlaylist))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FrameNewPlaylist());
+            panel_right_upper.add(new FrameNewPlaylist(frame_controls, this));
         }
         panel_right_upper.invalidate();
         panel_right_upper.repaint();
