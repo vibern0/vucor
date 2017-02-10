@@ -89,4 +89,16 @@ public class Playlist implements Serializable
     {
         return name;
     }
+    
+    public void setOnMusic(String music_name)
+    {
+        for(int in_order = 0; in_order < music_path_list.size(); in_order ++)
+        {
+            if(music_path_list.get(in_order).equals(music_name))
+            {
+                order = in_order;
+                break;
+            }
+        }
+    }
 }

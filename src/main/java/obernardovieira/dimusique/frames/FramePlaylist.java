@@ -20,12 +20,15 @@ public class FramePlaylist extends javax.swing.JPanel {
      * Creates new form FramePlaylist
      */
     private final MainWindows window;
+    private final FrameControls frameControls;
     private final Playlist previewPlaylist;
-    public FramePlaylist(JFrame window, Playlist preview)
+    public FramePlaylist(JFrame window, javax.swing.JPanel controls, Playlist preview)
     {
         initComponents();
         this.window = (MainWindows)window;
         this.previewPlaylist = preview;
+        this.frameControls = (FrameControls)controls;
+        //
         panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png",
                 256, 256, 178, 178));
     
@@ -38,9 +41,16 @@ public class FramePlaylist extends javax.swing.JPanel {
         else
         {
             previewPlaylist.getNames().forEach(
-                    (name) -> panel_music_list.add(new FramePlaylistElement(name))
+                    (name) -> panel_music_list.add(
+                            new FramePlaylistElement(this, name)
+                    )
             );
         }
+    }
+    
+    public void setThisPlaylistAndMusic(String name)
+    {
+        frameControls.setPlaylistAndMusic(previewPlaylist, name);
     }
 
     /**
@@ -63,7 +73,8 @@ public class FramePlaylist extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
-        panel_info.setPreferredSize(new java.awt.Dimension(530, 200));
+        panel_info.setMaximumSize(new java.awt.Dimension(540, 200));
+        panel_info.setPreferredSize(new java.awt.Dimension(540, 200));
         panel_info.setRequestFocusEnabled(false);
         panel_info.setVerifyInputWhenFocusTarget(false);
 
@@ -96,7 +107,7 @@ public class FramePlaylist extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(panel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_music_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label_album_name, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                    .addComponent(label_album_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panel_infoLayout.setVerticalGroup(
@@ -116,6 +127,9 @@ public class FramePlaylist extends javax.swing.JPanel {
         );
 
         scrollpane_music_list.setBorder(null);
+        scrollpane_music_list.setMaximumSize(new java.awt.Dimension(540, 300));
+        scrollpane_music_list.setMinimumSize(new java.awt.Dimension(10, 10));
+        scrollpane_music_list.setPreferredSize(new java.awt.Dimension(540, 300));
 
         panel_music_list.setLayout(new javax.swing.BoxLayout(panel_music_list, javax.swing.BoxLayout.Y_AXIS));
         scrollpane_music_list.setViewportView(panel_music_list);
@@ -126,7 +140,7 @@ public class FramePlaylist extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(scrollpane_music_list)
+                    .addComponent(scrollpane_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -135,7 +149,7 @@ public class FramePlaylist extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollpane_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                .addComponent(scrollpane_music_list, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

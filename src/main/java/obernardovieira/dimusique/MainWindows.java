@@ -56,7 +56,9 @@ public class MainWindows extends javax.swing.JFrame {
         else if(_case.equals(Basic.framePlaying))
         {
             panel_right_upper.removeAll();
-            panel_right_upper.add(new FramePlaylist(this, previewPlaylist));
+            panel_right_upper.add(
+                    new FramePlaylist(this, frame_controls, previewPlaylist)
+            );
         }
         else if(_case.equals(Basic.frameNewPlaylist))
         {
@@ -85,22 +87,33 @@ public class MainWindows extends javax.swing.JFrame {
         pannel_lower = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 500));
 
         panel_main.setMinimumSize(new java.awt.Dimension(0, 0));
         panel_main.setPreferredSize(new java.awt.Dimension(600, 500));
         panel_main.setLayout(new javax.swing.BoxLayout(panel_main, javax.swing.BoxLayout.Y_AXIS));
 
+        panel_upper.setMaximumSize(new java.awt.Dimension(600, 400));
+        panel_upper.setMinimumSize(new java.awt.Dimension(100, 100));
+        panel_upper.setPreferredSize(new java.awt.Dimension(600, 400));
         panel_upper.setLayout(new javax.swing.BoxLayout(panel_upper, javax.swing.BoxLayout.X_AXIS));
 
+        panel_left_upper.setMaximumSize(new java.awt.Dimension(60, 500));
+        panel_left_upper.setMinimumSize(new java.awt.Dimension(10, 10));
+        panel_left_upper.setPreferredSize(new java.awt.Dimension(60, 500));
         panel_left_upper.setLayout(new javax.swing.BoxLayout(panel_left_upper, javax.swing.BoxLayout.LINE_AXIS));
         panel_upper.add(panel_left_upper);
 
+        panel_right_upper.setMaximumSize(new java.awt.Dimension(540, 500));
+        panel_right_upper.setMinimumSize(new java.awt.Dimension(10, 10));
+        panel_right_upper.setPreferredSize(new java.awt.Dimension(540, 500));
         panel_right_upper.setLayout(new javax.swing.BoxLayout(panel_right_upper, javax.swing.BoxLayout.LINE_AXIS));
         panel_upper.add(panel_right_upper);
 
         panel_main.add(panel_upper);
 
+        pannel_lower.setMaximumSize(new java.awt.Dimension(600, 100));
+        pannel_lower.setMinimumSize(new java.awt.Dimension(100, 100));
+        pannel_lower.setPreferredSize(new java.awt.Dimension(600, 100));
         pannel_lower.setLayout(new javax.swing.BoxLayout(pannel_lower, javax.swing.BoxLayout.LINE_AXIS));
         panel_main.add(pannel_lower);
 
@@ -112,9 +125,7 @@ public class MainWindows extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel_main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel_main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -148,10 +159,8 @@ public class MainWindows extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainWindows().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainWindows().setVisible(true);
         });
     }
 

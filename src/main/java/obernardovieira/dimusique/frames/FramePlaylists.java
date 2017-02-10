@@ -5,6 +5,7 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.awt.Color;
 import java.io.IOException;
 import obernardovieira.dimusique.frames.elements.FramePlaylistsElement;
 import java.util.ArrayList;
@@ -60,6 +61,11 @@ public class FramePlaylists extends javax.swing.JPanel {
         }
         panel_playlists.invalidate();
         panel_playlists.repaint();
+        //
+        panel_add_playlist.add(new PicPanel("src/main/resources/images/005__plus.png",
+                167, 167, 70, 70, panel_add_playlist.getParent().getBackground()));
+        panel_add_playlist.invalidate();
+        panel_add_playlist.repaint();
     }
 
     /**
@@ -71,39 +77,124 @@ public class FramePlaylists extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label_title = new javax.swing.JLabel();
+        panel_title = new javax.swing.JPanel();
+        panel_space = new javax.swing.JPanel();
+        label_playlists = new javax.swing.JLabel();
+        panel_add_playlist = new javax.swing.JPanel();
         scrollpane_playlists = new javax.swing.JScrollPane();
         panel_playlists = new javax.swing.JPanel();
 
-        label_title.setFont(new java.awt.Font("Yu Gothic Light", 0, 28)); // NOI18N
-        label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_title.setText("You playlists");
+        setMaximumSize(new java.awt.Dimension(540, 500));
+        setMinimumSize(new java.awt.Dimension(100, 100));
+        setPreferredSize(new java.awt.Dimension(540, 500));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
+        panel_title.setMaximumSize(new java.awt.Dimension(540, 70));
+        panel_title.setMinimumSize(new java.awt.Dimension(50, 50));
+        panel_title.setPreferredSize(new java.awt.Dimension(540, 70));
+        panel_title.setLayout(new javax.swing.BoxLayout(panel_title, javax.swing.BoxLayout.X_AXIS));
+
+        panel_space.setMaximumSize(new java.awt.Dimension(70, 70));
+        panel_space.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panel_spaceMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                panel_spaceMouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_spaceLayout = new javax.swing.GroupLayout(panel_space);
+        panel_space.setLayout(panel_spaceLayout);
+        panel_spaceLayout.setHorizontalGroup(
+            panel_spaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+        panel_spaceLayout.setVerticalGroup(
+            panel_spaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+
+        panel_title.add(panel_space);
+
+        label_playlists.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        label_playlists.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_playlists.setText("Your playlists");
+        label_playlists.setMaximumSize(new java.awt.Dimension(400, 70));
+        label_playlists.setMinimumSize(new java.awt.Dimension(10, 10));
+        label_playlists.setPreferredSize(new java.awt.Dimension(400, 70));
+        panel_title.add(label_playlists);
+
+        panel_add_playlist.setBackground(new java.awt.Color(204, 255, 0));
+        panel_add_playlist.setMaximumSize(new java.awt.Dimension(70, 70));
+        panel_add_playlist.setPreferredSize(new java.awt.Dimension(70, 70));
+        panel_add_playlist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panel_add_playlistMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                panel_add_playlistMouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_add_playlistLayout = new javax.swing.GroupLayout(panel_add_playlist);
+        panel_add_playlist.setLayout(panel_add_playlistLayout);
+        panel_add_playlistLayout.setHorizontalGroup(
+            panel_add_playlistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+        panel_add_playlistLayout.setVerticalGroup(
+            panel_add_playlistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+
+        panel_title.add(panel_add_playlist);
+
+        add(panel_title);
+
+        scrollpane_playlists.setBorder(null);
         scrollpane_playlists.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollpane_playlists.setMaximumSize(new java.awt.Dimension(540, 430));
+        scrollpane_playlists.setMinimumSize(new java.awt.Dimension(10, 10));
+        scrollpane_playlists.setPreferredSize(new java.awt.Dimension(540, 430));
 
         panel_playlists.setLayout(new javax.swing.BoxLayout(panel_playlists, javax.swing.BoxLayout.Y_AXIS));
         scrollpane_playlists.setViewportView(panel_playlists);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_title, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
-            .addComponent(scrollpane_playlists)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(label_title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollpane_playlists, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
-        );
+        add(scrollpane_playlists);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void panel_add_playlistMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_add_playlistMousePressed
+        panel_add_playlist.removeAll();
+        panel_add_playlist.add(new PicPanel("src/main/resources/images/005__plus.png",
+                167, 167, 70, 70, new Color(0,153,153)));
+        panel_add_playlist.invalidate();
+        panel_add_playlist.repaint();
+    }//GEN-LAST:event_panel_add_playlistMousePressed
+
+    private void panel_add_playlistMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_add_playlistMouseReleased
+        panel_add_playlist.removeAll();
+        panel_add_playlist.add(new PicPanel("src/main/resources/images/005__plus.png",
+                167, 167, 70, 70, panel_add_playlist.getParent().getBackground()));
+        panel_add_playlist.invalidate();
+        panel_add_playlist.repaint();
+    }//GEN-LAST:event_panel_add_playlistMouseReleased
+
+    private void panel_spaceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_spaceMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panel_spaceMousePressed
+
+    private void panel_spaceMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_spaceMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panel_spaceMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel label_title;
+    private javax.swing.JLabel label_playlists;
+    private javax.swing.JPanel panel_add_playlist;
     private javax.swing.JPanel panel_playlists;
+    private javax.swing.JPanel panel_space;
+    private javax.swing.JPanel panel_title;
     private javax.swing.JScrollPane scrollpane_playlists;
     // End of variables declaration//GEN-END:variables
 }
