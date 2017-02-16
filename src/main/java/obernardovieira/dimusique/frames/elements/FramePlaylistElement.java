@@ -5,6 +5,10 @@
  */
 package obernardovieira.dimusique.frames.elements;
 
+import java.awt.Color;
+import obernardovieira.dimusique.frames.FramePlaylist;
+import obernardovieira.dimusique.frames.PicPanel;
+
 /**
  *
  * @author user
@@ -13,11 +17,26 @@ public class FramePlaylistElement extends javax.swing.JPanel {
 
     /**
      * Creates new form FramePlaylistElement
+     * @param parent
      * @param music_name
      */
-    public FramePlaylistElement(String music_name)
+    private final FramePlaylist parentFrame;
+    private final String music_name;
+    public FramePlaylistElement(javax.swing.JPanel parent, String music_name)
     {
         initComponents();
+        //
+        this.parentFrame = (FramePlaylist)parent;
+        this.music_name = music_name;
+        p_play.add(new PicPanel(
+                "src/main/resources/images/controls/131__play.png",
+                167, 167, 35, 35, p_play.getParent().getBackground())
+        );
+        p_remove.add(new PicPanel(
+                "src/main/resources/images/006__minus.png",
+                167, 167, 35, 35, p_remove.getParent().getBackground())
+        );
+        //
         label_music_name.setText(music_name);
         label_music_name.invalidate();
         label_music_name.repaint();
@@ -32,35 +51,126 @@ public class FramePlaylistElement extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        p_space = new javax.swing.JPanel();
         label_music_name = new javax.swing.JLabel();
-        bt_play = new javax.swing.JButton();
-        bt_remove = new javax.swing.JButton();
+        p_play = new javax.swing.JPanel();
+        p_remove = new javax.swing.JPanel();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.X_AXIS));
 
+        p_space.setMaximumSize(new java.awt.Dimension(35, 35));
+        p_space.setMinimumSize(new java.awt.Dimension(35, 35));
+
+        javax.swing.GroupLayout p_spaceLayout = new javax.swing.GroupLayout(p_space);
+        p_space.setLayout(p_spaceLayout);
+        p_spaceLayout.setHorizontalGroup(
+            p_spaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+        p_spaceLayout.setVerticalGroup(
+            p_spaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        add(p_space);
+
         label_music_name.setText("Music Name");
-        label_music_name.setMaximumSize(new java.awt.Dimension(380, 14));
-        label_music_name.setMinimumSize(new java.awt.Dimension(380, 14));
-        label_music_name.setPreferredSize(new java.awt.Dimension(380, 14));
+        label_music_name.setMaximumSize(new java.awt.Dimension(350, 14));
+        label_music_name.setMinimumSize(new java.awt.Dimension(350, 14));
+        label_music_name.setPreferredSize(new java.awt.Dimension(350, 14));
         add(label_music_name);
 
-        bt_play.setText("Play");
-        bt_play.setMaximumSize(new java.awt.Dimension(75, 23));
-        bt_play.setMinimumSize(new java.awt.Dimension(75, 23));
-        bt_play.setPreferredSize(new java.awt.Dimension(75, 23));
-        add(bt_play);
+        p_play.setMaximumSize(new java.awt.Dimension(35, 35));
+        p_play.setMinimumSize(new java.awt.Dimension(35, 35));
+        p_play.setPreferredSize(new java.awt.Dimension(35, 35));
+        p_play.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                p_playMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                p_playMouseReleased(evt);
+            }
+        });
 
-        bt_remove.setText("Remove");
-        bt_remove.setMaximumSize(new java.awt.Dimension(75, 23));
-        bt_remove.setMinimumSize(new java.awt.Dimension(75, 23));
-        bt_remove.setPreferredSize(new java.awt.Dimension(75, 23));
-        add(bt_remove);
+        javax.swing.GroupLayout p_playLayout = new javax.swing.GroupLayout(p_play);
+        p_play.setLayout(p_playLayout);
+        p_playLayout.setHorizontalGroup(
+            p_playLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+        p_playLayout.setVerticalGroup(
+            p_playLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        add(p_play);
+
+        p_remove.setMaximumSize(new java.awt.Dimension(35, 35));
+        p_remove.setMinimumSize(new java.awt.Dimension(35, 35));
+        p_remove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                p_removeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                p_removeMouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_removeLayout = new javax.swing.GroupLayout(p_remove);
+        p_remove.setLayout(p_removeLayout);
+        p_removeLayout.setHorizontalGroup(
+            p_removeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+        p_removeLayout.setVerticalGroup(
+            p_removeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        add(p_remove);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void p_playMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_playMousePressed
+        p_play.removeAll();
+        p_play.add(new PicPanel("src/main/resources/images/controls/131__play.png",
+                167, 167, 35, 35, new Color(0,153,153)));
+        p_play.invalidate();
+        p_play.repaint();
+    }//GEN-LAST:event_p_playMousePressed
+
+    private void p_playMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_playMouseReleased
+        
+        //play this song and set this playlist
+        parentFrame.setThisPlaylistAndMusic(music_name);
+        
+        p_play.removeAll();
+        p_play.add(new PicPanel("src/main/resources/images/controls/131__play.png",
+                167, 167, 35, 35, p_play.getParent().getBackground()));
+        p_play.invalidate();
+        p_play.repaint();
+    }//GEN-LAST:event_p_playMouseReleased
+
+    private void p_removeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_removeMousePressed
+        p_remove.removeAll();
+        p_remove.add(new PicPanel("src/main/resources/images/006__minus.png",
+                167, 167, 35, 35, new Color(0,153,153)));
+        p_remove.invalidate();
+        p_remove.repaint();
+    }//GEN-LAST:event_p_removeMousePressed
+
+    private void p_removeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_removeMouseReleased
+        p_remove.removeAll();
+        p_remove.add(new PicPanel("src/main/resources/images/006__minus.png",
+                167, 167, 35, 35, p_remove.getParent().getBackground()));
+        p_remove.invalidate();
+        p_remove.repaint();
+    }//GEN-LAST:event_p_removeMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_play;
-    private javax.swing.JButton bt_remove;
     private javax.swing.JLabel label_music_name;
+    private javax.swing.JPanel p_play;
+    private javax.swing.JPanel p_remove;
+    private javax.swing.JPanel p_space;
     // End of variables declaration//GEN-END:variables
 }

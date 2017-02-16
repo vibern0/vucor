@@ -5,6 +5,7 @@
  */
 package obernardovieira.dimusique.frames;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -39,17 +40,15 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
      * @param window
      * @param mainWindow
      */
-    public FrameNewPlaylist(javax.swing.JPanel window, JFrame mainWindow) {
-        BufferedImage master;
+    public FrameNewPlaylist(javax.swing.JPanel window, JFrame mainWindow)
+    {
         initComponents();
-        try
-        {
-            master = ImageIO.read(new File("src/main/resources/images/edit-icon.png"));
-            Image scaled = master.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-            button_edit.setIcon(new ImageIcon(scaled));
-        }
-        catch (IOException ex)
-        { }
+        //
+        panel_edit.add(new PicPanel("src/main/resources/images/083__setting_edit.png",
+                167, 167, 40, 40, panel_edit.getParent().getBackground()));
+        panel_edit.invalidate();
+        panel_edit.repaint();
+        //
         playlist_name = label_playlist_title.getText();
         new_playlist = new HashMap<>();
         this.frameControls = (FrameControls)window;
@@ -68,7 +67,6 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         panel_title = new javax.swing.JPanel();
         label_playlist_title = new javax.swing.JLabel();
         panel_edit = new javax.swing.JPanel();
-        button_edit = new javax.swing.JButton();
         panel_content = new javax.swing.JPanel();
         scrollpanel_musics = new javax.swing.JScrollPane();
         panel_musics = new javax.swing.JPanel();
@@ -93,15 +91,12 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         panel_edit.setMaximumSize(new java.awt.Dimension(40, 40));
         panel_edit.setMinimumSize(new java.awt.Dimension(40, 40));
         panel_edit.setPreferredSize(new java.awt.Dimension(40, 40));
-
-        button_edit.setToolTipText("");
-        button_edit.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        button_edit.setMaximumSize(new java.awt.Dimension(40, 40));
-        button_edit.setMinimumSize(new java.awt.Dimension(40, 40));
-        button_edit.setPreferredSize(new java.awt.Dimension(40, 40));
-        button_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_editActionPerformed(evt);
+        panel_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panel_editMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                panel_editMouseReleased(evt);
             }
         });
 
@@ -109,15 +104,11 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         panel_edit.setLayout(panel_editLayout);
         panel_editLayout.setHorizontalGroup(
             panel_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_editLayout.createSequentialGroup()
-                .addComponent(button_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         panel_editLayout.setVerticalGroup(
             panel_editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_editLayout.createSequentialGroup()
-                .addComponent(button_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         panel_title.add(panel_edit);
@@ -186,16 +177,28 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         mainWindow.setViewer(Basic.framePlaylists);
     }//GEN-LAST:event_button_createActionPerformed
 
-    private void button_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_editActionPerformed
+    private void panel_editMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_editMousePressed
+        panel_edit.add(new PicPanel("src/main/resources/images/083__setting_edit.png",
+                167, 167, 40, 40, new Color(0,153,153)));
+        panel_edit.invalidate();
+        panel_edit.repaint();
+    }//GEN-LAST:event_panel_editMousePressed
+
+    private void panel_editMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_editMouseReleased
+        panel_edit.add(new PicPanel("src/main/resources/images/083__setting_edit.png",
+                167, 167, 40, 40, panel_edit.getParent().getBackground()));
+        panel_edit.invalidate();
+        panel_edit.repaint();
+        //
         String s = (String)JOptionPane.showInputDialog(
-                    this,
-                    "Insert a new name for the playlist:\n",
-                    "Set playlist name",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
-                    playlist_name);
-        
+            this,
+            "Insert a new name for the playlist:\n",
+            "Set playlist name",
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            null,
+            playlist_name);
+
         if (s == null || s.length()  < 1)
         {
             return;
@@ -204,7 +207,7 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
         label_playlist_title.setText(playlist_name);
         label_playlist_title.invalidate();
         label_playlist_title.repaint();
-    }//GEN-LAST:event_button_editActionPerformed
+    }//GEN-LAST:event_panel_editMouseReleased
     
     public void removeFromList(javax.swing.JPanel panel)
     {
@@ -219,7 +222,6 @@ public class FrameNewPlaylist extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_add_music;
     private javax.swing.JButton button_create;
-    private javax.swing.JButton button_edit;
     private javax.swing.JLabel label_playlist_title;
     private javax.swing.JPanel panel_buttons;
     private javax.swing.JPanel panel_content;
