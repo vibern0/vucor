@@ -3,27 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.frames;
+package obernardovieira.vucor.frames;
 
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import obernardovieira.dimusique.MainWindows;
-import obernardovieira.dimusique.core.Basic;
-import obernardovieira.dimusique.core.Playlist;
-import obernardovieira.dimusique.core.data.DataFiles;
-import obernardovieira.dimusique.frames.elements.FrameNewPLElement;
+import obernardovieira.vucor.MainWindows;
+import obernardovieira.vucor.core.Basic;
+import obernardovieira.vucor.core.Playlist;
+import obernardovieira.vucor.core.data.DataFiles;
+import obernardovieira.vucor.frames.elements.FrameNewPLElement;
 
 /**
  *

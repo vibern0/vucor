@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.frames;
+package obernardovieira.vucor.frames;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
-import obernardovieira.dimusique.core.Model;
-import obernardovieira.dimusique.core.Playlist;
-import obernardovieira.dimusique.core.data.DataFiles;
+import obernardovieira.vucor.core.Model;
+import obernardovieira.vucor.core.Playlist;
+import obernardovieira.vucor.core.data.DataFiles;
 
 /**
  *
@@ -27,8 +27,27 @@ public class FrameControls extends javax.swing.JPanel {
     public FrameControls()
     {
         initComponents();
-        /*panel_disc_image.add(new PicPanel("src/main/resources/images/disk2.png",
-                256, 256, 95, 95, panel_data.getBackground()));*/
+        panel_disc_image.add(new PicPanel(
+                "src/main/resources/images/disk2.png",
+                256, 256, 100, 100, panel_data.getBackground()));
+        panel_previous.add(new PicPanel(
+                "src/main/resources/images/controls/137__previous.png",
+                167, 167, 60, 60, panel_data.getBackground()));
+        panel_next.add(new PicPanel(
+                "src/main/resources/images/controls/136__next.png",
+                167, 167, 60, 60, panel_data.getBackground()));
+        panel_stop.add(new PicPanel(
+                "src/main/resources/images/controls/133__stop.png",
+                167, 167, 60, 60, panel_data.getBackground()));
+        panel_pause.add(new PicPanel(
+                "src/main/resources/images/controls/132__pause.png",
+                167, 167, 60, 60, panel_data.getBackground()));
+        panel_play.add(new PicPanel(
+                "src/main/resources/images/controls/131__play.png",
+                167, 167, 60, 60, panel_data.getBackground()));
+        panel_titles.setBackground(panel_data.getBackground());
+        panel_time.setBackground(panel_data.getBackground());
+        panel_controls.setBackground(panel_data.getBackground());
         
         try
         {
@@ -123,6 +142,7 @@ public class FrameControls extends javax.swing.JPanel {
 
         add(panel_disc_image);
 
+        panel_data.setBackground(new java.awt.Color(255, 255, 255));
         panel_data.setMaximumSize(new java.awt.Dimension(500, 100));
         panel_data.setMinimumSize(new java.awt.Dimension(30, 30));
         panel_data.setPreferredSize(new java.awt.Dimension(500, 100));
@@ -178,7 +198,6 @@ public class FrameControls extends javax.swing.JPanel {
 
         panel_previous.setBackground(new java.awt.Color(204, 255, 0));
         panel_previous.setMaximumSize(new java.awt.Dimension(60, 60));
-        panel_previous.setMinimumSize(new java.awt.Dimension(10, 10));
         panel_previous.setPreferredSize(new java.awt.Dimension(60, 60));
 
         javax.swing.GroupLayout panel_previousLayout = new javax.swing.GroupLayout(panel_previous);
@@ -196,7 +215,6 @@ public class FrameControls extends javax.swing.JPanel {
 
         panel_next.setBackground(new java.awt.Color(204, 255, 0));
         panel_next.setMaximumSize(new java.awt.Dimension(60, 60));
-        panel_next.setMinimumSize(new java.awt.Dimension(10, 10));
         panel_next.setPreferredSize(new java.awt.Dimension(60, 60));
 
         javax.swing.GroupLayout panel_nextLayout = new javax.swing.GroupLayout(panel_next);
@@ -214,7 +232,6 @@ public class FrameControls extends javax.swing.JPanel {
 
         panel_stop.setBackground(new java.awt.Color(204, 255, 0));
         panel_stop.setMaximumSize(new java.awt.Dimension(60, 60));
-        panel_stop.setMinimumSize(new java.awt.Dimension(10, 10));
         panel_stop.setPreferredSize(new java.awt.Dimension(60, 60));
 
         javax.swing.GroupLayout panel_stopLayout = new javax.swing.GroupLayout(panel_stop);
@@ -232,7 +249,6 @@ public class FrameControls extends javax.swing.JPanel {
 
         panel_pause.setBackground(new java.awt.Color(204, 255, 0));
         panel_pause.setMaximumSize(new java.awt.Dimension(60, 60));
-        panel_pause.setMinimumSize(new java.awt.Dimension(10, 10));
         panel_pause.setPreferredSize(new java.awt.Dimension(60, 60));
 
         javax.swing.GroupLayout panel_pauseLayout = new javax.swing.GroupLayout(panel_pause);
@@ -250,7 +266,6 @@ public class FrameControls extends javax.swing.JPanel {
 
         panel_play.setBackground(new java.awt.Color(204, 255, 0));
         panel_play.setMaximumSize(new java.awt.Dimension(60, 60));
-        panel_play.setMinimumSize(new java.awt.Dimension(10, 10));
 
         javax.swing.GroupLayout panel_playLayout = new javax.swing.GroupLayout(panel_play);
         panel_play.setLayout(panel_playLayout);

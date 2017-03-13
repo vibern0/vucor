@@ -1,7 +1,7 @@
-package obernardovieira.dimusique.core;
+package obernardovieira.vucor.core;
 
-import obernardovieira.dimusique.core.data.DataModel;
-import obernardovieira.dimusique.core.data.DataFiles;
+import obernardovieira.vucor.core.data.DataModel;
+import obernardovieira.vucor.core.data.DataFiles;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,15 +23,6 @@ public class Model
     private long totalFrames;
     private boolean isPlaying;
     private Thread thread_music;
-    //
-    
-    //model como observer de datamodel e playlist
-    //framecontrols como observer de datamodel e playlist
-    
-    //model deve ter funcoes static
-    
-    //model deve guardar nome da musica e playlist, para que no caso de
-    //eliminar musica ou playlist, a reproducao pára
     
     public Model() throws IOException,
             FileNotFoundException, ClassNotFoundException

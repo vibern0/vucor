@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.frames;
+package obernardovieira.vucor.frames;
 
 import java.awt.Color;
 import java.io.IOException;
-import obernardovieira.dimusique.frames.elements.FramePlaylistsElement;
+import obernardovieira.vucor.frames.elements.FramePlaylistsElement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import obernardovieira.dimusique.MainWindows;
-import obernardovieira.dimusique.core.data.DataFiles;
-import obernardovieira.dimusique.core.Playlist;
-import obernardovieira.dimusique.core.data.DataModel;
+import obernardovieira.vucor.MainWindows;
+import obernardovieira.vucor.core.data.DataFiles;
+import obernardovieira.vucor.core.Playlist;
+import obernardovieira.vucor.core.data.DataModel;
 
 /**
  *
