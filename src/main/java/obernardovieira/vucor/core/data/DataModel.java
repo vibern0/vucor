@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.core.data;
+package obernardovieira.vucor.core.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import obernardovieira.dimusique.core.Playlist;
+import obernardovieira.vucor.core.Playlist;
 
 /**
  *

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique;
+package obernardovieira.vucor;
 
-import obernardovieira.dimusique.core.Basic;
-import obernardovieira.dimusique.core.Playlist;
-import obernardovieira.dimusique.frames.*;
+import obernardovieira.vucor.core.Basic;
+import obernardovieira.vucor.core.Playlist;
+import obernardovieira.vucor.frames.*;
 
 /**
  *

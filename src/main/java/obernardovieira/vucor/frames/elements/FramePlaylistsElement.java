@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.frames.elements;
+package obernardovieira.vucor.frames.elements;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import obernardovieira.dimusique.MainWindows;
-import obernardovieira.dimusique.core.Basic;
-import obernardovieira.dimusique.core.Playlist;
-import obernardovieira.dimusique.frames.FrameControls;
+import obernardovieira.vucor.MainWindows;
+import obernardovieira.vucor.core.Basic;
+import obernardovieira.vucor.core.Playlist;
+import obernardovieira.vucor.frames.FrameControls;
 
 /**
  *

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.frames.elements;
+package obernardovieira.vucor.frames.elements;
 
-import obernardovieira.dimusique.frames.FrameNewPlaylist;
+import obernardovieira.vucor.frames.FrameNewPlaylist;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package obernardovieira.dimusique.frames;
+package obernardovieira.vucor.frames;
 
 import java.awt.Color;
 import java.awt.Graphics;
